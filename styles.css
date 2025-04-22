@@ -1,0 +1,46 @@
+@import 'https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700&family=Poppins:wght@700&display=swap';
+@import "https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap";
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: "Rubik", sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --white: #fff;
+    --white-50: rgba(255, 255, 255, .5);
+    --white-20: rgba(255, 255, 255, .2);
+    --white-5: rgba(255, 255, 255, .05);
+    --accent: #BF4700;
+    --gray: #0E0E0E;
+}
+
+/* Lenis CSS*/
+html.lenis {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
