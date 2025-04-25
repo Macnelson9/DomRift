@@ -1,6 +1,9 @@
 'use strict';
 
 // Selected elements
+const loaderContainer = document.querySelector('.loader-container');
+const logo = document.querySelector('.logo');
+const topEl = document.querySelector('.top');
 const navLinks = document.querySelectorAll('.nav-ul li a');
 const openMenuBtn = document.querySelector('.hamburger');
 const closeBtn = document.querySelector('.close-btn');
@@ -29,7 +32,6 @@ gsap.ticker.add((time) => {
 gsap.ticker.lagSmoothing(0)
 
 // Smooth scroll implementation 
-
 const smoothScroll = function (e) {
     e.preventDefault();
     
@@ -70,7 +72,7 @@ closeBtn.addEventListener('click', function () {
 })
 
 // Animated cursor
-const words = ['Craft', 'Canvas', 'Language', 'Joy', 'Escape'];
+const words = ['my Craft', 'my Canvas', 'my Language', 'my Joy', 'my Escape', 'what I do'];
 
 // Main timeline
 const mainTimeline = gsap.timeline({
@@ -115,7 +117,7 @@ cursorTimeline.to('#cursor', {
 	delay: .8
 })
 
-// Magneto button
+// Magneto button animation
 const magneto = document.querySelector('.magneto');
 const magnetoText = document.querySelector('.magneto .text');
 
@@ -162,14 +164,11 @@ const resetMagneto = (event) => {
 	})
 }
 
-
-
-// Add event listeners
 magneto.addEventListener('mousemove', activateMagneto);
 magneto.addEventListener('mouseleave', resetMagneto);
 magneto.addEventListener('click', smoothScroll);
 
-// Animations
+// Appear Animations
     gsap.set(['.hero-h1', '#hero-h3', '#hero-p', '.social-links-li'], {
     scale: 0,
     opacity: 0,
@@ -186,6 +185,12 @@ magneto.addEventListener('click', smoothScroll);
         y: 0,
         ease: "bounce"
     }).fromTo('.nav-ul li', {
+        y: -100,
+        ease: "bounce"
+    }, {
+        y: 0,
+        ease: "bounce"
+    }, '>').fromTo('.hamburger', {
         y: -100,
         ease: "bounce"
     }, {
@@ -235,7 +240,17 @@ magneto.addEventListener('click', smoothScroll);
     ease: "power2ease.out"
     }, '>')
 
-    // ScrollIntoView
+    tl.fromTo('.about-me-container', {
+    opacity: 0,
+    duration: 1.2,
+    ease: "power2ease.out"
+    }, {
+    opacity: 1,
+    duration: 1.2,
+    ease: "power2ease.out"
+    }, '>')
+
+// ScrollIntoView Animation
 const entries = document.querySelectorAll('.entry');
 
 entries.forEach(entry => {
@@ -269,7 +284,8 @@ entries.forEach(entry => {
     }, '<')
 })
 
-const darkElements = [bodyContainer, arrowIcon, magneto];
+// Theme switcher
+const darkElements = [bodyContainer, arrowIcon, magneto, logo, topEl];
 
 const toggleTheme = (theme) => {
     if (theme === 'dark') {
@@ -305,6 +321,11 @@ lightBtn1.addEventListener('click', () => toggleTheme('light'));
 
 document.addEventListener('DOMContentLoaded', function() {
     const currentTheme = localStorage.getItem('theme') || 'light';
+
+    setTimeout(() => {
+        loaderContainer.style.display = 'none';
+    }, 1200);
+
     toggleTheme(currentTheme);
 });
 
