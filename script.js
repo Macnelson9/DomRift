@@ -5,6 +5,7 @@ const loaderContainer = document.querySelector('.loader-container');
 const logo = document.querySelector('.logo');
 const topEl = document.querySelector('.top');
 const navLinks = document.querySelectorAll('.nav-ul li a');
+const mobileNavLinks = document.querySelectorAll('.mobile-nav-ul li a');
 const openMenuBtn = document.querySelector('.hamburger');
 const closeBtn = document.querySelector('.close-btn');
 const openMenuDiv = document.querySelectorAll('.hamburger div.bar');
@@ -59,6 +60,9 @@ const smoothScroll = function (e) {
 }
 
 navLinks.forEach(link => {
+    link.addEventListener('click', smoothScroll);
+});
+mobileNavLinks.forEach(link => {
     link.addEventListener('click', smoothScroll);
 });
 
