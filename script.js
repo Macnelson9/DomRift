@@ -1,6 +1,8 @@
 'use strict';
 
 // Selected elements
+const backToTopButton = document.querySelector('.back-to-top');
+const heroSection = document.querySelector('.hero');
 const loaderContainer = document.querySelector('.loader-container');
 const logo = document.querySelector('.logo');
 const topEl = document.querySelector('.top');
@@ -65,6 +67,28 @@ navLinks.forEach(link => {
 mobileNavLinks.forEach(link => {
     link.addEventListener('click', smoothScroll);
 });
+
+// Back to top button functionality
+const toggleBackToTopButton = () => {
+    const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+    const scrollPosition = window.scrollY;
+
+    if (scrollPosition > heroBottom) {
+        backToTopButton.classList.remove('hidden');
+    } else {
+        backToTopButton.classList.add('hidden');
+    }
+};
+
+const scrollToTop = () => {
+    lenis.scrollTo(0, {
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+    });
+};
+
+window.addEventListener('scroll', toggleBackToTopButton);
+backToTopButton.addEventListener('click', scrollToTop);
 
 // Open and close mobile navigation
 openMenuBtn.addEventListener('click', function () {
