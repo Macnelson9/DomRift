@@ -164,7 +164,7 @@ const activateMagneto = (event) => {
         ease: Power4.easeOut
     })
 
-    // Move the button text to its new position
+    // Move the button to its new position
     gsap.to(magnetoText, {
         duration: 1,
         x: newX * magnetoTextStrength,
