@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "babel": "^5.8.38",
+    "parcel": "^2.15.2"
+  },
+  "name": "domrift",
+  "version": "1.0.0",
+  "description": "Portfolio Website for Uche Macnelson Ofatu",
+  "default": "index.html",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Macnelson9/DomRift.git"
+  },
+  "author": "Uche Macnelson Ofatu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Macnelson9/DomRift/issues"
+  },
+  "homepage": "https://github.com/Macnelson9/DomRift#readme"
+}
