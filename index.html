@@ -1,202 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio of Uche Macnelson Ofatu, showcasing frontend development projects and skills in HTML, CSS, JavaScript and React">
-    <link rel="shortcut icon" href="./images/logo-cc.svg" type="jpeg/svg" sizes="32 x 32">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Portfolio of Uche Macnelson Ofatu, showcasing frontend development projects and skills in HTML, CSS, JavaScript and React"
+    />
+    <link
+      rel="shortcut icon"
+      href="./images/logo-cc.svg"
+      type="jpeg/svg"
+      sizes="32 x 32"
+    />
     <title>Uche Ofatu || Frontend Developer Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <script defer src="script.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="loader-container">
-        <div class="loader"></div>
+      <div class="loader"></div>
     </div>
     <div class="body-container">
-        <header class="header">
-            <div class="logo">
-                <img src="./images/logo-cc.svg" alt="Logo image" class="logo-image">
-            </div>
-
-            <nav class="nav-bar">
-                <ul class="nav-ul">
-                    <li><a href="#about-me">About</a></li>
-                    <li><a href="#work">Work</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><button id="dark-btn1">Dark</button><button id="light-btn1">Light</button></li>
-                </ul>
-            </nav>
-
-            <div class="header-side-content">
-				<a href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09" class="button">
-					Start a Project
-					<svg width="12" height="12" viewBox="0 0 12 12" class="arrow">
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M7.28033 0.96967C6.98744 0.676777 6.51256 0.676777 6.21967 0.96967C5.92678 1.26256 5.92678 1.73744 6.21967 2.03033L9.43934 5.25H1.5C1.08579 5.25 0.75 5.58579 0.75 6C0.75 6.41421 1.08579 6.75 1.5 6.75H9.43934L6.21967 9.96967C5.92678 10.2626 5.92678 10.7374 6.21967 11.0303C6.51256 11.3232 6.98744 11.3232 7.28033 11.0303L11.7803 6.53033C12.0732 6.23744 12.0732 5.76256 11.7803 5.46967L7.28033 0.96967Z"/>
-					</svg>
-				</a>
-			</div>
-
-            <div class="hamburger">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-        </header>
-
-        <div class="mobile-navigation">
-            <div class="top">
-                <img src="./images/logo-cc.svg" alt="Logo image" class="logo-image">
-                <div class="close-btn">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-            </div>
-            <nav>
-                <ul class="mobile-nav-ul">
-                    <li><a href="#about-me">About</a></li>
-                    <li><a href="#work">Work</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09" target="_blank">Start a Project 
-                        <svg width="12" height="12" viewBox="0 0 12 12" class="arrow">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.28033 0.96967C6.98744 0.676777 6.51256 0.676777 6.21967 0.96967C5.92678 1.26256 5.92678 1.73744 6.21967 2.03033L9.43934 5.25H1.5C1.08579 5.25 0.75 5.58579 0.75 6C0.75 6.41421 1.08579 6.75 1.5 6.75H9.43934L6.21967 9.96967C5.92678 10.2626 5.92678 10.7374 6.21967 11.0303C6.51256 11.3232 6.98744 11.3232 7.28033 11.0303L11.7803 6.53033C12.0732 6.23744 12.0732 5.76256 11.7803 5.46967L7.28033 0.96967Z"/>
-                        </svg>
-                    </a></li>
-                    <li><button id="dark-btn">Dark</button><button id="light-btn">Light</button></li>
-                </ul>
-            </nav>
+      <header class="header">
+        <div class="logo">
+          <img src="./images/logo-cc.svg" alt="Logo image" class="logo-image" />
         </div>
 
-        <section class="hero">
-            <div class="hero-container">
-                <div class="hero-text">
-                    <h1 class="hero-h1">
-                        Frontend Development is <br>
-                        <span id="typewriter"></span>
-                        <span id="cursor">|</span>
-                    </h1>
-                    <h3 id="hero-h3">Hey, there! I'm a <span>Frontend Developer</span> and I love working with passionate people from all around the world.</h3>
-                    <p id="hero-p">Building the web, One pixel at a time ✨</p>
-                </div>
-                
-                <!-- <ul class="social-links">
+        <nav class="nav-bar">
+          <ul class="nav-ul">
+            <li><a href="#about-me">About</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li>
+              <button id="dark-btn1">Dark</button
+              ><button id="light-btn1">Light</button>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="header-side-content">
+          <a
+            href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09"
+            class="button"
+          >
+            Start a Project
+            <svg width="12" height="12" viewBox="0 0 12 12" class="arrow">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M7.28033 0.96967C6.98744 0.676777 6.51256 0.676777 6.21967 0.96967C5.92678 1.26256 5.92678 1.73744 6.21967 2.03033L9.43934 5.25H1.5C1.08579 5.25 0.75 5.58579 0.75 6C0.75 6.41421 1.08579 6.75 1.5 6.75H9.43934L6.21967 9.96967C5.92678 10.2626 5.92678 10.7374 6.21967 11.0303C6.51256 11.3232 6.98744 11.3232 7.28033 11.0303L11.7803 6.53033C12.0732 6.23744 12.0732 5.76256 11.7803 5.46967L7.28033 0.96967Z"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <div class="hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </header>
+
+      <div class="mobile-navigation">
+        <div class="top">
+          <img src="./images/logo-cc.svg" alt="Logo image" class="logo-image" />
+          <div class="close-btn">
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <nav>
+          <ul class="mobile-nav-ul">
+            <li><a href="#about-me">About</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li>
+              <a
+                href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09"
+                target="_blank"
+                >Start a Project
+                <svg width="12" height="12" viewBox="0 0 12 12" class="arrow">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.28033 0.96967C6.98744 0.676777 6.51256 0.676777 6.21967 0.96967C5.92678 1.26256 5.92678 1.73744 6.21967 2.03033L9.43934 5.25H1.5C1.08579 5.25 0.75 5.58579 0.75 6C0.75 6.41421 1.08579 6.75 1.5 6.75H9.43934L6.21967 9.96967C5.92678 10.2626 5.92678 10.7374 6.21967 11.0303C6.51256 11.3232 6.98744 11.3232 7.28033 11.0303L11.7803 6.53033C12.0732 6.23744 12.0732 5.76256 11.7803 5.46967L7.28033 0.96967Z"
+                  />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <button id="dark-btn">Dark</button
+              ><button id="light-btn">Light</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <section class="hero">
+        <div class="hero-container">
+          <div class="hero-text">
+            <h1 class="hero-h1">
+              Frontend Development is <br />
+              <span id="typewriter"></span>
+              <span id="cursor">|</span>
+            </h1>
+            <h3 id="hero-h3">
+              Hey, there! I'm a <span>Frontend Developer</span> and I love
+              working with passionate people from all around the world.
+            </h3>
+            <p id="hero-p">Building the web, One pixel at a time ✨</p>
+          </div>
+
+          <!-- <ul class="social-links">
                     <li class="social-links-li"><a href="https://www.facebook.com/micheal.okpara.52" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></li>
                     <li class="social-links-li"><a href="https://www.instagram.com/macnelson92?igsh=c3hha3VjOHYzdWs5" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a></li>
                     <li class="social-links-li"><a href="https://www.linkedin.com/in/uche-ofatu" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a></li>
                     <li class="social-links-li"><a href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09" target="_blank"><ion-icon name="logo-twitter"></ion-icon></a></li>
                     <li class="social-links-li"><a href="https://github.com/Macnelson9" target="_blank"><ion-icon name="logo-github"></ion-icon></a></li>
                 </ul> -->
-                <button class="magneto" href="#work">
-                    <a class="text" href="#work">My Work</a>
-                </button>
+          <button class="magneto" href="#work">
+            <a class="text" href="#work">My Work</a>
+          </button>
+        </div>
+      </section>
+
+      <section class="about-me" id="about-me">
+        <div class="about-me-container">
+          <div class="text-area">
+            <h2>About Me</h2>
+            <h3>
+              Crafting <span>clean code</span> and
+              <span>meaningful experiences</span>, one line at a time.
+            </h3>
+            <p>
+              I'm <strong>Uche</strong>, a passionate frontend developer with a
+              flair for transforming ideas into elegant, responsive, and
+              user-focused websites. With a
+              <strong>Bachelor's Degree in Computer Science & I.T</strong>, and
+              a foundation in <strong>HTML, CSS and JavaScript</strong>, with
+              expertise in <strong>TailwindCSS and TypeScript</strong>, I
+              specialize in building clean interfaces that solve real problems.
+              Every project I take on is an opportunity to learn, refine, and
+              deliver something exceptional. When I'm not coding, I'm studying
+              user behaviour, exploring design trends and taking on new
+              challenges. Let's build the future-one interaction at a time.
+            </p>
+
+            <h3>
+              <span>Tools & Technologies:</span> HTML5, CSS3, TailwindCSS, ES6+
+              JavaScript, TypeScript, Git & GitHub, Parcel, Babel, and
+              React(in-view)
+            </h3>
+          </div>
+
+          <div class="image-content">
+            <img
+              src="./images/Headshot bg white.png"
+              alt="Image of Uche Ofatu aka DomRift"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="work" id="work">
+        <div class="work-container">
+          <h2>Work or Projects</h2>
+          <div class="entry">
+            <div class="entry__meta">
+              <h3>
+                <a
+                  href="https://macnelson9.github.io/TerraData/"
+                  target="_blank"
+                  >TerraData</a
+                >
+              </h3>
+              <p>Personal Project</p>
             </div>
-        </section>
-
-        <section class="about-me" id="about-me">
-            <div class="about-me-container">
-                <div class="text-area">
-                    <h2>About Me</h2>
-                    <h3>Crafting <span>clean code</span> and <span>meaningful experiences</span>, one line at a time.</h3>
-                    <p>I'm <strong>Uche</strong>, a passionate frontend developer with a flair for transforming ideas into elegant, responsive, and user-focused websites. With a <strong>Bachelor's Degree in Computer Science & I.T</strong>, and a foundation in <strong>HTML, CSS and JavaScript</strong>, I specialize in building clean interfaces that solve real problems. Every project I take on is an opportunity to learn, refine, and deliver something exceptional. When I'm not coding, I'm studying user behaviour, exploring design trends and taking on new challenges. Let's build the future-one interaction at a time.</p>
-
-                    <h3><span>Tools & Technologies:</span> HTML5, CSS3, ES6+ JavaScript, Git & GitHub, Babel, React and Tailwind CSS (in-view)</h3>
-                </div>
-
-                <div class="image-content">
-                    <img src="./images/Headshot bg white.png" alt="Image of Uche Ofatu aka DomRift">
-                </div>
-        </section>
-
-        <section class="work" id="work">
-            <div class="work-container">
-                <h2>Work or Projects</h2>
-                <div class="entry">
-                    <div class="entry__meta">
-                        <h3><a href="https://macnelson9.github.io/TerraData/" target="_blank">TerraData</a></h3>
-                        <p>Personal Project</p>
-                    </div>
-                    <figure class="entry__media">
-                        <a href="https://macnelson9.github.io/TerraData/" target="_blank"><img src="images/TerraData __ Global Insights (1).png" alt="TerraData Global Insights"></a>
-                    </figure>
-                </div>
-                <div class="entry">
-                    <div class="entry__meta">
-                        <h3><a href="https://macnelson9.github.io/sweetCrumbs/" target="_blank">Sweet Crumbs</a></h3>
-                        <p>Personal Project</p>
-                    </div>
-                    <figure class="entry__media">
-                        <a href="https://macnelson9.github.io/sweetCrumbs/" target="_blank"><img src="images/Sweet Crumbs (1).png" alt="Sweet Crumbs Landing Page Image"></a>
-                    </figure>
-                </div>
-                <div class="entry">
-                    <div class="entry__meta">
-                        <h3><a href="https://macnelson9.github.io/smart-home/" target="_blank">Smart Home</a></h3>
-                        <p>Personal Project</p>
-                    </div>
-                    <figure class="entry__media">
-                        <a href="https://macnelson9.github.io/smart-home/" target="_blank"><img src="images/Smart Home __ Landing Page.png" alt="Smart Home Landing Page"></a>
-                    </figure>
-                </div>
-                <div class="entry">
-                    <div class="entry__meta">
-                        <h3><a href="https://macnelson9.github.io/innovatek/" target="_blank">Innovatek</a></h3>
-                        <p>Personal Project</p>
-                    </div>
-                    <figure class="entry__media">
-                        <a href="https://macnelson9.github.io/innovatek/" target="_blank"><img src="images/Innovatek __ Innovating Tomorrow, Today.png" alt="Innovatek Landing Page"></a>
-                    </figure>
-                </div>
-                <div class="entry">
-                    <div class="entry__meta">
-                        <h3><a href="https://macnelson9.github.io/qlick-art/" target="_blank">Qlick Art</a></h3>
-                        <p>Personal Project</p>
-                    </div>
-                    <figure class="entry__media">
-                        <a href="https://macnelson9.github.io/qlick-art/" target="_blank"><img src="images/Art Stories - Qlick.png" alt="Qlick Art Landing Page"></a>
-                    </figure>
-                </div>
+            <figure class="entry__media">
+              <a href="https://macnelson9.github.io/TerraData/" target="_blank"
+                ><img
+                  src="images/TerraData __ Global Insights (1).png"
+                  alt="TerraData Global Insights"
+              /></a>
+            </figure>
+          </div>
+          <div class="entry">
+            <div class="entry__meta">
+              <h3>
+                <a
+                  href="https://macnelson9.github.io/sweetCrumbs/"
+                  target="_blank"
+                  >Sweet Crumbs</a
+                >
+              </h3>
+              <p>Personal Project</p>
             </div>
-        </section>
-
-        <section class="contact" id="contact">
-            <div class="contact-container">
-                <h2>
-                    Frontend Development is 
-                    <span id="typewriter"></span>
-                    <span id="cursor">|</span>
-                </h2>
-    
-            <div class="contact-content">
-                <h3>Let's create something amazing together!</h3>
-                <a href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09" target="_blank">
-                    <button class="btn">
-                        Tell me about your project
-                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none">
-                            <path d="M21.5 12H3.5M17.5 8L21.5 12L17.5 8ZM21.5 12L17.5 16L21.5 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </a>
-                <ul class="contact-social-links">
-                    <li class="social-links-li"><a href="https://www.facebook.com/micheal.okpara.52" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></li>
-                    <li class="social-links-li"><a href="https://www.instagram.com/macnelson92?igsh=c3hha3VjOHYzdWs5" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a></li>
-                    <li class="social-links-li"><a href="https://www.linkedin.com/in/uche-ofatu"><ion-icon name="logo-linkedin" target="_blank"></ion-icon></a></li>
-                    <li class="social-links-li"><a href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09"><ion-icon name="logo-twitter" target="_blank"></ion-icon></a></li>
-                    <li class="social-links-li"><a href="https://github.com/Macnelson9" target="_blank"><ion-icon name="logo-github"></ion-icon></a></li>
-                </ul>
+            <figure class="entry__media">
+              <a
+                href="https://macnelson9.github.io/sweetCrumbs/"
+                target="_blank"
+                ><img
+                  src="images/Sweet Crumbs (1).png"
+                  alt="Sweet Crumbs Landing Page Image"
+              /></a>
+            </figure>
+          </div>
+          <div class="entry">
+            <div class="entry__meta">
+              <h3>
+                <a
+                  href="https://macnelson9.github.io/smart-home/"
+                  target="_blank"
+                  >Smart Home</a
+                >
+              </h3>
+              <p>Personal Project</p>
             </div>
+            <figure class="entry__media">
+              <a href="https://macnelson9.github.io/smart-home/" target="_blank"
+                ><img
+                  src="images/Smart Home __ Landing Page.png"
+                  alt="Smart Home Landing Page"
+              /></a>
+            </figure>
+          </div>
+          <div class="entry">
+            <div class="entry__meta">
+              <h3>
+                <a
+                  href="https://macnelson9.github.io/innovatek/"
+                  target="_blank"
+                  >Innovatek</a
+                >
+              </h3>
+              <p>Personal Project</p>
             </div>
-            <button class="back-to-top hidden">Back to Top</button>
-        </section>
+            <figure class="entry__media">
+              <a href="https://macnelson9.github.io/innovatek/" target="_blank"
+                ><img
+                  src="images/Innovatek __ Innovating Tomorrow, Today.png"
+                  alt="Innovatek Landing Page"
+              /></a>
+            </figure>
+          </div>
+          <div class="entry">
+            <div class="entry__meta">
+              <h3>
+                <a
+                  href="https://macnelson9.github.io/qlick-art/"
+                  target="_blank"
+                  >Qlick Art</a
+                >
+              </h3>
+              <p>Personal Project</p>
+            </div>
+            <figure class="entry__media">
+              <a href="https://macnelson9.github.io/qlick-art/" target="_blank"
+                ><img
+                  src="images/Art Stories - Qlick.png"
+                  alt="Qlick Art Landing Page"
+              /></a>
+            </figure>
+          </div>
+        </div>
+      </section>
 
-        <footer>
-            <p>&copy; 2025 Uche Macnelson Ofatu. All rights reserved.</p>
-        </footer>
+      <section class="contact" id="contact">
+        <div class="contact-container">
+          <h2>
+            Frontend Development is
+            <span id="typewriter"></span>
+            <span id="cursor">|</span>
+          </h2>
+
+          <div class="contact-content">
+            <h3>Let's create something amazing together!</h3>
+            <a
+              href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09"
+              target="_blank"
+            >
+              <button class="btn">
+                Tell me about your project
+                <svg width="25" height="24" viewBox="0 0 25 24" fill="none">
+                  <path
+                    d="M21.5 12H3.5M17.5 8L21.5 12L17.5 8ZM21.5 12L17.5 16L21.5 12Z"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </a>
+            <ul class="contact-social-links">
+              <li class="social-links-li">
+                <a
+                  href="https://www.facebook.com/micheal.okpara.52"
+                  title="Facebook Profile"
+                  target="_blank"
+                  ><ion-icon name="logo-facebook"></ion-icon
+                ></a>
+              </li>
+              <li class="social-links-li">
+                <a
+                  href="https://www.instagram.com/macnelson92?igsh=c3hha3VjOHYzdWs5"
+                  title="Instagram Profile"
+                  target="_blank"
+                  ><ion-icon name="logo-instagram"></ion-icon
+                ></a>
+              </li>
+              <li class="social-links-li">
+                <a
+                  href="https://www.linkedin.com/in/uche-ofatu"
+                  title="LinkedIn Profile"
+                  ><ion-icon name="logo-linkedin" target="_blank"></ion-icon
+                ></a>
+              </li>
+              <li class="social-links-li">
+                <a
+                  href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09"
+                  title="X Profile"
+                  ><ion-icon name="logo-twitter" target="_blank"></ion-icon
+                ></a>
+              </li>
+              <li class="social-links-li">
+                <a
+                  href="https://github.com/Macnelson9"
+                  title="Github Profile"
+                  target="_blank"
+                  ><ion-icon name="logo-github"></ion-icon
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button class="back-to-top hidden">Back to Top</button>
+      </section>
+
+      <footer>
+        <p>&copy; 2025 Uche Macnelson Ofatu. All rights reserved.</p>
+      </footer>
     </div>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/TextPlugin.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+  </body>
 </html>
