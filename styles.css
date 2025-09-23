@@ -603,7 +603,7 @@ footer p {
 
 @media (min-width: 700px) {
   .hero {
-    height: 80dvh;
+    height: 70dvh;
   }
 
   .hero-container {
@@ -734,17 +734,33 @@ footer p {
     padding: 30px;
   }
 
+  .hero {
+    height: 90dvh;
+    gap: 40px;
+  }
+
   .hero-text h1 {
     font-size: 4rem;
+    margin-top: 2rem;
     width: 100%;
   }
 
   .hero-text h3 {
+    font-size: 1.8rem;
     width: 50%;
   }
 
   .hero-text p {
+    font-size: 1.5rem;
     font-weight: 600;
+  }
+
+  .magneto {
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 11rem;
+    height: 11rem;
+    margin-top: 3rem;
   }
 
   .social-links {
@@ -772,6 +788,18 @@ footer p {
     width: 50%;
   }
 
+  .text-area h2 {
+    font-size: 2.5rem;
+  }
+
+  .text-area h3 {
+    font-size: 1.5rem;
+  }
+
+  .text-area p {
+    font-size: 1.2rem;
+  }
+
   .image-content img {
     width: 100%;
     height: 100%;
@@ -796,6 +824,10 @@ footer p {
     font-size: 1.3rem;
   }
 
+  .entry__meta h3 a {
+    font-size: 2rem;
+  }
+
   .entry__meta p {
     font-size: 1rem;
     margin-top: 0.6rem;
@@ -809,11 +841,27 @@ footer p {
     font-size: 2.4rem;
   }
 
+  .contact-content h3 {
+    font-size: 1.8rem;
+  }
+
+  .btn {
+    font-size: 1.1rem;
+  }
+
+  .contact-social-links {
+    margin-top: 1.5rem;
+  }
+
   .contact-social-links li {
-    gap: 10px;
+    gap: 8px;
   }
 
   footer {
     padding: 30px;
+  }
+
+  footer p {
+    font-size: 0.9rem;
   }
 }
