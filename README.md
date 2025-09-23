@@ -1,7 +1,7 @@
 # DomRift
 Personal Portfolio website for Uche Macnelson Ofatu aka DomRift. Built with vanilla JavaScript, HTML, and CSS, this project features a responsive design and theme switching.
 
-![Project Preview](./images/desktop-preview.jpg)
+![Project Preview](./images/desktop-preview 2.jpg)
 
 ## Features
 
