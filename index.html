@@ -1,394 +1,1670 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Portfolio of Uche Macnelson Ofatu, showcasing frontend development projects and skills in HTML, CSS, JavaScript and React"
-    />
-    <link
-      rel="shortcut icon"
-      href="./images/logo-cc.svg"
-      type="jpeg/svg"
-      sizes="32 x 32"
-    />
-    <title>Uche Ofatu || Frontend Developer Portfolio</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="script.js"></script>
-  </head>
-  <body>
-    <div class="loader-container">
-      <div class="loader"></div>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uche Ofatu — Fullstack Blockchain Developer</title>
+<meta name="description" content="Uche Macnelson Ofatu — Fullstack Blockchain Developer building dApps, interfaces, and on-chain experiences. React, Next.js, Solidity, Cairo.">
+<link rel="shortcut icon" href="./images/logo-cc.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+============================================================ */
+:root {
+  --ease: cubic-bezier(.16,.84,.44,1);
+  --radius-card: 16px;
+  --radius-lg: 28px;
+}
+
+[data-theme="dark"] {
+  --bg:         #1A1A1A;
+  --surface:    #222222;
+  --surface-2:  #2A2A2A;
+  --surface-3:  #333333;
+  --text:       #F0EDE8;
+  --text-muted: #7A7470;
+  --accent:     #F97316;
+  --accent-dim: rgba(249,115,22,0.15);
+  --accent-glow:rgba(249,115,22,0.35);
+  --web3:       #A78BFA;
+  --web3-dim:   rgba(167,139,250,0.15);
+  --green:      #10B981;
+  --hairline:   rgba(255,255,255,0.07);
+  --hairline-2: rgba(255,255,255,0.14);
+  --shadow:     0 24px 60px rgba(0,0,0,0.5);
+}
+
+[data-theme="light"] {
+  --bg:         #FAF8F5;
+  --surface:    #FFFFFF;
+  --surface-2:  #F3F0EC;
+  --surface-3:  #EAE5DF;
+  --text:       #1A1410;
+  --text-muted: #7A7068;
+  --accent:     #EA580C;
+  --accent-dim: rgba(234,88,12,0.1);
+  --accent-glow:rgba(234,88,12,0.25);
+  --web3:       #7C3AED;
+  --web3-dim:   rgba(124,58,237,0.1);
+  --green:      #059669;
+  --hairline:   rgba(0,0,0,0.07);
+  --hairline-2: rgba(0,0,0,0.12);
+  --shadow:     0 24px 60px rgba(0,0,0,0.1);
+}
+
+/* ============================================================
+   RESET & BASE
+============================================================ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+  transition: background .4s var(--ease), color .4s var(--ease);
+}
+
+@media (max-width:860px),(hover:none) and (pointer:coarse) { body { cursor: auto; } }
+
+h1, h2, h3, .display { font-family:'Syne', sans-serif; font-weight:800; letter-spacing:-0.02em; line-height:1.05; }
+.mono { font-family:'JetBrains Mono', monospace; }
+
+a { color:inherit; text-decoration:none; }
+img, svg { display:block; max-width:100%; }
+
+::selection { background:var(--accent); color:#fff; }
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.wrap { max-width:1200px; margin:0 auto; padding:0 40px; }
+
+/* ============================================================
+   CURSOR
+============================================================ */
+#cursor-dot, #cursor-ring {
+  position:fixed; top:0; left:0;
+  pointer-events:none; z-index:9999;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  will-change:transform;
+}
+#cursor-dot { width:6px; height:6px; background:var(--accent); }
+#cursor-ring {
+  width:34px; height:34px;
+  border:1px solid var(--accent);
+  opacity:.6;
+  transition:width .25s var(--ease), height .25s var(--ease), opacity .25s, border-color .25s;
+}
+#cursor-ring.hover { width:56px; height:56px; opacity:.9; background:var(--accent-dim); }
+body.no-cursor { cursor:auto; }
+body.no-cursor #cursor-dot, body.no-cursor #cursor-ring { display:none; }
+
+/* ============================================================
+   NAV
+============================================================ */
+header {
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  padding:18px 0;
+  background:rgba(8,11,18,0.82);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s, transform .6s var(--ease), opacity .6s var(--ease), background .4s;
+  transform:translateY(-100%); opacity:0;
+}
+[data-theme="light"] header { background:rgba(244,246,250,0.88); }
+header.in { transform:translateY(0); opacity:1; }
+header.scrolled { border-bottom-color:var(--hairline); }
+
+nav.wrap { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+
+.logo-mark {
+  font-family:'JetBrains Mono', monospace;
+  font-size:16px; font-weight:500;
+  color:var(--accent);
+  display:flex; align-items:center; gap:6px;
+}
+.logo-mark .bracket { color:var(--text-muted); }
+
+.nav-links {
+  display:flex; gap:32px; list-style:none;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; letter-spacing:.04em;
+}
+.nav-links a {
+  position:relative; padding:4px 0; color:var(--text-muted);
+  transition:color .3s;
+}
+.nav-links a::after {
+  content:''; position:absolute; left:0; bottom:-1px;
+  width:0; height:1px; background:var(--accent);
+  transition:width .3s var(--ease);
+}
+.nav-links a:hover { color:var(--text); }
+.nav-links a:hover::after { width:100%; }
+
+.nav-right { display:flex; align-items:center; gap:14px; }
+
+/* Theme toggle */
+.theme-toggle {
+  width:44px; height:24px;
+  background:var(--surface-3);
+  border:1px solid var(--hairline-2);
+  border-radius:100px;
+  cursor:pointer;
+  position:relative;
+  transition:background .3s;
+  flex-shrink:0;
+}
+.theme-toggle::after {
+  content:'';
+  position:absolute;
+  top:3px; left:3px;
+  width:16px; height:16px;
+  border-radius:50%;
+  background:var(--accent);
+  transition:transform .3s var(--ease), background .3s;
+}
+[data-theme="light"] .theme-toggle::after { transform:translateX(20px); background:var(--web3); }
+.theme-toggle-label { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); }
+
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:11px 22px; border-radius:100px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px; letter-spacing:.05em;
+  cursor:pointer; border:1px solid transparent;
+  transition:transform .35s var(--ease), background .3s, color .3s, border-color .3s, box-shadow .3s;
+  white-space:nowrap;
+}
+.btn-primary { background:var(--accent); color:#fff; }
+.btn-primary:hover { box-shadow:0 0 28px var(--accent-glow); transform:translateY(-1px); }
+.btn-outline { background:transparent; color:var(--text-muted); border-color:var(--hairline-2); }
+.btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+
+/* Hamburger */
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+.hamburger .bar { width:22px; height:1.5px; background:var(--text); border-radius:2px; transition:all .3s; }
+
+/* Mobile nav */
+.mobile-nav {
+  position:fixed; inset:0; z-index:490;
+  background:var(--bg);
+  display:flex; flex-direction:column;
+  padding:100px 40px 40px;
+  transform:translateX(100%);
+  transition:transform .5s var(--ease);
+}
+.mobile-nav.open { transform:translateX(0); }
+.mobile-nav ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.mobile-nav a {
+  font-family:'Syne',sans-serif; font-size:36px; font-weight:800;
+  color:var(--text-muted); transition:color .3s;
+}
+.mobile-nav a:hover { color:var(--accent); }
+
+/* ============================================================
+   HERO
+============================================================ */
+#hero {
+  position:relative; min-height:100vh;
+  display:flex; align-items:center;
+  padding-top:110px; padding-bottom:60px;
+  overflow:hidden;
+}
+
+/* Scanline background texture */
+#hero::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(59,130,246,0.015) 2px,
+    rgba(59,130,246,0.015) 4px
+  );
+  pointer-events:none;
+}
+
+.hero-grid {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:60px; align-items:center; width:100%;
+  position:relative; z-index:2;
+  max-width:680px;
+}
+
+.hero-copy { position:relative; }
+
+/* Terminal-style status pill */
+.status-pill {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--surface); border:1px solid var(--hairline-2);
+  border-radius:100px; padding:7px 16px;
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--text-muted); margin-bottom:28px;
+  opacity:0; transform:translateY(12px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+.status-pill.in { opacity:1; transform:translateY(0); }
+.status-pill .pulse {
+  width:7px; height:7px; border-radius:50%; background:var(--green);
+  animation:pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:.4;transform:scale(.6);}
+}
+.status-pill .comment { color:var(--text-muted); margin-right:2px; }
+
+.hero-headline {
+  font-size:clamp(42px,6vw,80px);
+  line-height:1.04;
+  margin-bottom:24px;
+}
+.hero-headline .line { display:block; overflow:hidden; }
+.hero-headline .line span {
+  display:block; transform:translateY(106%);
+  transition:transform .9s var(--ease);
+}
+.hero-headline.in .line span { transform:translateY(0); }
+.hero-headline .line:nth-child(2) span { transition-delay:.08s; }
+.hero-headline .line:nth-child(3) span { transition-delay:.16s; }
+
+.accent-text { color:var(--accent); }
+.web3-text { color:var(--web3); }
+
+/* Typewriter cursor */
+.blink { animation:blink .8s step-end infinite; color:var(--accent); }
+@keyframes blink { 50%{ opacity:0; } }
+
+.hero-sub {
+  font-size:16px; line-height:1.7; color:var(--text-muted);
+  max-width:420px; margin-bottom:36px;
+  opacity:0; transform:translateY(12px);
+  transition:opacity .7s var(--ease) .3s, transform .7s var(--ease) .3s;
+}
+.hero-sub.in { opacity:1; transform:translateY(0); }
+
+.hero-actions {
+  display:flex; gap:14px; flex-wrap:wrap;
+  opacity:0; transform:translateY(12px);
+  transition:opacity .7s var(--ease) .45s, transform .7s var(--ease) .45s;
+}
+.hero-actions.in { opacity:1; transform:translateY(0); }
+
+/* Code snippet decoration */
+.code-tag {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--text-muted); margin-top:32px;
+  opacity:0; transition:opacity .7s var(--ease) .6s;
+}
+.code-tag.in { opacity:1; }
+.code-tag .kw { color:var(--web3); }
+.code-tag .fn { color:var(--accent); }
+.code-tag .str { color:var(--green); }
+
+/* Hero canvas */
+#hero-canvas {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  z-index:1; pointer-events:none;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position:absolute; left:40px; bottom:40px; z-index:3;
+  display:flex; align-items:center; gap:12px;
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  color:var(--text-muted);
+  opacity:0; transition:opacity .8s .9s;
+}
+.scroll-hint.in { opacity:1; }
+.scroll-hint .v-line {
+  width:1px; height:32px; background:var(--hairline-2);
+  overflow:hidden; position:relative;
+}
+.scroll-hint .v-line::after {
+  content:''; position:absolute; top:-100%; left:0;
+  width:100%; height:100%; background:var(--accent);
+  animation:scroll-march 2s ease-in-out infinite;
+}
+@keyframes scroll-march { 0%{top:-100%;} 50%{top:0;} 100%{top:100%;} }
+
+/* ============================================================
+   MARQUEE
+============================================================ */
+.marquee-section {
+  border-top:1px solid var(--hairline);
+  border-bottom:1px solid var(--hairline);
+  padding:22px 0; overflow:hidden;
+  background:var(--surface);
+}
+.marquee-track {
+  display:flex; width:max-content;
+  animation:marquee-roll 36s linear infinite;
+}
+.marquee-section:hover .marquee-track { animation-play-state:paused; }
+.marquee-item {
+  display:flex; align-items:center; gap:20px;
+  padding:0 30px;
+  font-family:'JetBrains Mono',monospace; font-size:12px;
+  text-transform:uppercase; letter-spacing:.05em;
+  color:var(--text-muted); white-space:nowrap;
+}
+.marquee-item .sep { color:var(--accent); font-size:10px; }
+@keyframes marquee-roll {
+  from{transform:translateX(0);} to{transform:translateX(-50%);}
+}
+
+/* ============================================================
+   SECTIONS GENERIC
+============================================================ */
+section { padding:120px 0; position:relative; }
+
+.section-head { margin-bottom:64px; }
+.section-label {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--accent); letter-spacing:.08em; text-transform:uppercase;
+  display:block; margin-bottom:16px;
+}
+[data-theme="dark"] .section-label { color:var(--web3); }
+.section-title { font-size:clamp(30px,4vw,48px); }
+.section-note { color:var(--text-muted); font-size:14px; line-height:1.65; margin-top:14px; max-width:500px; }
+
+.reveal {
+  opacity:0; transform:translateY(32px);
+  transition:opacity .8s var(--ease), transform .8s var(--ease);
+}
+.reveal.in { opacity:1; transform:translateY(0); }
+.reveal:nth-child(2){ transition-delay:.1s; }
+.reveal:nth-child(3){ transition-delay:.2s; }
+.reveal:nth-child(4){ transition-delay:.3s; }
+
+@media (prefers-reduced-motion:reduce){
+  .reveal { opacity:1!important; transform:none!important; transition:none!important; }
+}
+
+/* ============================================================
+   WORK
+============================================================ */
+.work-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(340px,1fr));
+  gap:24px;
+}
+
+.proj-card {
+  background:var(--surface);
+  border:1px solid var(--hairline);
+  border-radius:var(--radius-card);
+  overflow:hidden;
+  transition:border-color .4s, box-shadow .4s, transform .4s var(--ease);
+  cursor:pointer;
+  position:relative;
+}
+.proj-card::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background:linear-gradient(135deg, var(--accent-dim), transparent 60%);
+  opacity:0; transition:opacity .4s;
+}
+.proj-card:hover { border-color:var(--accent); box-shadow:0 0 40px var(--accent-dim), var(--shadow); transform:translateY(-4px); }
+.proj-card:hover::before { opacity:1; }
+
+.proj-img {
+  width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--surface-2);
+  position:relative; z-index:1;
+}
+.proj-img img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .6s var(--ease);
+}
+.proj-card:hover .proj-img img { transform:scale(1.04); }
+.proj-placeholder {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+.proj-placeholder .ph-grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(var(--hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+  background-size:28px 28px;
+  opacity:.6;
+}
+.proj-placeholder .ph-label {
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(255,255,255,0.25); position:relative; z-index:1;
+}
+[data-theme="light"] .proj-placeholder .ph-label { color:rgba(0,0,0,0.2); }
+
+/* Web3 badge */
+.proj-badge {
+  position:absolute; top:14px; right:14px; z-index:2;
+  background:var(--web3-dim); border:1px solid var(--web3);
+  color:var(--web3); border-radius:100px;
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  letter-spacing:.06em; text-transform:uppercase;
+  padding:4px 10px;
+}
+
+.proj-info { padding:20px 22px 22px; position:relative; z-index:1; }
+.proj-info-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+.proj-name { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; }
+.proj-type { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-muted); text-transform:uppercase; }
+.proj-desc { font-size:13px; line-height:1.6; color:var(--text-muted); }
+.proj-link {
+  display:inline-flex; align-items:center; gap:6px;
+  margin-top:14px; font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--accent); transition:gap .3s;
+}
+.proj-link:hover { gap:10px; }
+.proj-link svg { width:12px; height:12px; flex-shrink:0; }
+
+/* ============================================================
+   WEB3 SECTION
+============================================================ */
+#web3 {
+  position:relative; overflow:hidden;
+  padding:140px 0;
+  background:var(--surface);
+  border-top:1px solid var(--hairline);
+  border-bottom:1px solid var(--hairline);
+}
+
+#web3-canvas {
+  position:absolute; inset:0; width:100%; height:100%; z-index:0;
+  opacity:.9;
+}
+
+.web3-inner {
+  position:relative; z-index:2;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:80px; align-items:center;
+}
+
+.web3-copy .section-label { color:var(--web3); }
+
+.chain-stat-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:16px;
+  margin-top:40px;
+}
+.chain-stat {
+  background:var(--surface-2); border:1px solid var(--hairline);
+  border-radius:12px; padding:20px 22px;
+  transition:border-color .3s, transform .3s;
+}
+.chain-stat:hover { border-color:var(--web3); transform:translateY(-2px); }
+.chain-stat .stat-val {
+  font-family:'Syne',sans-serif; font-size:28px; font-weight:800;
+  color:var(--web3); line-height:1;
+}
+.chain-stat .stat-label {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--text-muted); margin-top:6px;
+  text-transform:uppercase; letter-spacing:.04em;
+}
+
+.tech-stack {
+  display:flex; flex-wrap:wrap; gap:10px; margin-top:28px;
+}
+.tech-pill {
+  background:var(--surface-2); border:1px solid var(--hairline-2);
+  border-radius:100px; padding:6px 14px;
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--text-muted); transition:all .3s;
+}
+.tech-pill:hover { border-color:var(--web3); color:var(--web3); }
+.tech-pill.accent:hover { border-color:var(--accent); color:var(--accent); }
+
+/* ============================================================
+   ABOUT
+============================================================ */
+.about-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:80px; align-items:center;
+}
+
+.about-img {
+  position:relative; border-radius:var(--radius-lg);
+  overflow:hidden;
+}
+.about-img img { width:100%; aspect-ratio:3/4; object-fit:cover; object-position:top; }
+.about-img-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, transparent 50%, var(--bg) 100%);
+}
+
+/* Terminal card */
+.terminal-card {
+  background:var(--surface-2); border:1px solid var(--hairline-2);
+  border-radius:12px; overflow:hidden; margin-bottom:28px;
+}
+.terminal-bar {
+  display:flex; align-items:center; gap:7px;
+  padding:10px 14px; background:var(--surface-3);
+  border-bottom:1px solid var(--hairline);
+}
+.t-dot { width:9px; height:9px; border-radius:50%; }
+.t-dot.red { background:#EF4444; }
+.t-dot.yellow { background:#F59E0B; }
+.t-dot.green { background:#10B981; }
+.terminal-body { padding:18px; }
+.terminal-body p {
+  font-family:'JetBrains Mono',monospace; font-size:12px;
+  line-height:1.9; color:var(--text-muted);
+}
+.terminal-body .kw { color:var(--web3); }
+.terminal-body .str { color:var(--green); }
+.terminal-body .fn { color:var(--accent); }
+.terminal-body .comment { color:var(--text-muted); opacity:.5; }
+
+.fact-row {
+  display:flex; justify-content:space-between;
+  padding:16px 0; border-bottom:1px solid var(--hairline);
+  transition:padding-left .3s;
+}
+.fact-row:hover { padding-left:10px; }
+.fact-label { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; }
+.fact-value { font-size:14px; text-align:right; }
+
+/* ============================================================
+   CONTACT
+============================================================ */
+#contact {
+  position:relative; text-align:center; overflow:hidden;
+  background:var(--bg);
+}
+#contact-canvas { position:absolute; inset:0; width:100%; height:100%; z-index:0; opacity:.6; }
+.contact-inner { position:relative; z-index:2; }
+.contact-title { font-size:clamp(32px,5.5vw,70px); max-width:800px; margin:0 auto 30px; }
+.contact-cta-group { display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:40px; }
+.social-row {
+  display:flex; justify-content:center; gap:20px; margin-top:48px;
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+}
+.social-row a {
+  color:var(--text-muted); padding:8px 14px;
+  border:1px solid var(--hairline); border-radius:100px;
+  transition:color .3s, border-color .3s;
+}
+.social-row a:hover { color:var(--accent); border-color:var(--accent); }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+  border-top:1px solid var(--hairline);
+  padding:300px 0;
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--text-muted);
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:960px){
+  .hero-grid { grid-template-columns:1fr; }
+  .web3-inner { grid-template-columns:1fr; gap:50px; }
+  .about-grid { grid-template-columns:1fr; }
+  .about-img { max-width:400px; margin:0 auto; }
+  .work-grid { grid-template-columns:1fr; }
+}
+@media (max-width:720px){
+  .wrap { padding:0 22px; }
+  .nav-links, .nav-right .btn { display:none; }
+  .hamburger { display:flex; }
+  section { padding:80px 0; }
+  .chain-stat-grid { grid-template-columns:1fr; }
+  footer { flex-direction:column; gap:10px; text-align:center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ======================================================
+     CURSOR
+====================================================== -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- ======================================================
+     HEADER
+====================================================== -->
+<header id="site-header">
+  <nav class="wrap">
+    <a href="#hero" class="logo-mark">
+      <span class="bracket">&lt;</span>uche<span style="color:var(--web3)">/</span><span class="bracket">&gt;</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#work">work</a></li>
+      <li><a href="#web3">web3</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <span class="theme-toggle-label mono" id="theme-label">dark</span>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+      <a href="https://github.com/Macnelson9" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
     </div>
-    <div class="body-container">
-      <header class="header">
-        <div class="logo">
-          <img src="./images/logo-cc.svg" alt="Logo image" class="logo-image" />
-        </div>
 
-        <nav class="nav-bar">
-          <ul class="nav-ul">
-            <li><a href="#about-me">About</a></li>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li>
-              <button id="dark-btn1">Dark</button
-              ><button id="light-btn1">Light</button>
-            </li>
-          </ul>
-        </nav>
+    <div class="hamburger" id="hamburger">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+  </nav>
+</header>
 
-        <div class="header-side-content">
-          <a
-            href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09"
-            class="button"
-          >
-            Start a Project
-            <svg width="12" height="12" viewBox="0 0 12 12" class="arrow">
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M7.28033 0.96967C6.98744 0.676777 6.51256 0.676777 6.21967 0.96967C5.92678 1.26256 5.92678 1.73744 6.21967 2.03033L9.43934 5.25H1.5C1.08579 5.25 0.75 5.58579 0.75 6C0.75 6.41421 1.08579 6.75 1.5 6.75H9.43934L6.21967 9.96967C5.92678 10.2626 5.92678 10.7374 6.21967 11.0303C6.51256 11.3232 6.98744 11.3232 7.28033 11.0303L11.7803 6.53033C12.0732 6.23744 12.0732 5.76256 11.7803 5.46967L7.28033 0.96967Z"
-              />
-            </svg>
-          </a>
-        </div>
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobile-nav">
+  <ul>
+    <li><a href="#work" class="mobile-link">work</a></li>
+    <li><a href="#web3" class="mobile-link">web3</a></li>
+    <li><a href="#about" class="mobile-link">about</a></li>
+    <li><a href="#contact" class="mobile-link">contact</a></li>
+  </ul>
+</div>
 
-        <div class="hamburger">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </header>
+<main>
 
-      <div class="mobile-navigation">
-        <div class="top">
-          <img src="./images/logo-cc.svg" alt="Logo image" class="logo-image" />
-          <div class="close-btn">
-            <div class="bar"></div>
-            <div class="bar"></div>
-          </div>
-        </div>
-        <nav>
-          <ul class="mobile-nav-ul">
-            <li><a href="#about-me">About</a></li>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li>
-              <a
-                href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09"
-                target="_blank"
-                >Start a Project
-                <svg width="12" height="12" viewBox="0 0 12 12" class="arrow">
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M7.28033 0.96967C6.98744 0.676777 6.51256 0.676777 6.21967 0.96967C5.92678 1.26256 5.92678 1.73744 6.21967 2.03033L9.43934 5.25H1.5C1.08579 5.25 0.75 5.58579 0.75 6C0.75 6.41421 1.08579 6.75 1.5 6.75H9.43934L6.21967 9.96967C5.92678 10.2626 5.92678 10.7374 6.21967 11.0303C6.51256 11.3232 6.98744 11.3232 7.28033 11.0303L11.7803 6.53033C12.0732 6.23744 12.0732 5.76256 11.7803 5.46967L7.28033 0.96967Z"
-                  />
-                </svg>
-              </a>
-            </li>
-            <li>
-              <button id="dark-btn">Dark</button
-              ><button id="light-btn">Light</button>
-            </li>
-          </ul>
-        </nav>
+<!-- ======================================================
+     HERO
+====================================================== -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="status-pill mono">
+        <span class="pulse"></span>
+        <span class="comment">// </span>available for new projects
       </div>
 
-      <section class="hero">
-        <div class="hero-container">
-          <div class="hero-text">
-            <h1 class="hero-h1">
-              Fullstack Blockchain Development is <br />
-              <span id="typewriter"></span>
-              <span id="cursor">|</span>
-            </h1>
-            <h3 id="hero-h3">
-              Hey, there! I'm a
-              <span>Fullstack Blockchain Developer</span> and I love working
-              with passionate people from all around the world.
-            </h3>
-            <p id="hero-p">
-              Building the web and blockchain, One step at a time ✨
-            </p>
-          </div>
+      <h1 class="hero-headline">
+        <span class="line"><span>Building the</span></span>
+        <span class="line"><span class="accent-text">decentralized</span></span>
+        <span class="line"><span>web.<span class="blink">_</span></span></span>
+      </h1>
 
-          <!-- <ul class="social-links">
-                    <li class="social-links-li"><a href="https://www.facebook.com/micheal.okpara.52" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></li>
-                    <li class="social-links-li"><a href="https://www.instagram.com/macnelson92?igsh=c3hha3VjOHYzdWs5" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a></li>
-                    <li class="social-links-li"><a href="https://www.linkedin.com/in/uche-ofatu" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a></li>
-                    <li class="social-links-li"><a href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09" target="_blank"><ion-icon name="logo-twitter"></ion-icon></a></li>
-                    <li class="social-links-li"><a href="https://github.com/Macnelson9" target="_blank"><ion-icon name="logo-github"></ion-icon></a></li>
-                </ul> -->
-          <button class="magneto" href="#work">
-            <a class="text" href="#work">My Work</a>
-          </button>
-        </div>
-      </section>
+      <p class="hero-sub">
+        Fullstack Blockchain Developer — React, Next.js, Rust, Solidity & Cairo.
+        I build dApps, interfaces, and on-chain experiences that actually work.
+      </p>
 
-      <section class="about-me" id="about-me">
-        <div class="about-me-container">
-          <div class="text-area">
-            <h2>About Me</h2>
-            <h3>
-              Crafting <span>clean code</span> and
-              <span>meaningful experiences</span>, one line at a time.
-            </h3>
-            <p>
-              I'm <strong>Uche</strong>, a passionate fullstack blockchain
-              developer with a flair for transforming ideas into elegant,
-              responsive, and user-focused apps and dApps. With a
-              <strong>Bachelor's Degree in Computer Science & I.T</strong>, and
-              a foundation in <strong>HTML, CSS and JavaScript</strong>, plus
-              expertise in
-              <strong>React, Next.Js, TailwindCSS and TypeScript</strong>, I
-              also have experience building
-              <strong>dApps using Solidity and Cairo</strong>. I specialize in
-              building clean interfaces that solve real problems. Every project
-              I take on is an opportunity to learn, refine, and deliver
-              something exceptional. When I'm not coding, I'm studying user
-              behaviour, exploring design trends and taking on new challenges.
-              Let's build the future-one interaction at a time.
-            </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-primary magnetic">See the work</a>
+        <a href="#contact" class="btn btn-outline magnetic">Start a project</a>
+      </div>
 
-            <h3>
-              <span>Tools & Technologies:</span> HTML5, CSS3, TailwindCSS, ES6+
-              JavaScript, React, Next.Js, TypeScript, Solidity, Cairo, Git &
-              GitHub
-            </h3>
-          </div>
-
-          <div class="image-content">
-            <img
-              src="./images/Headshot bg white.png"
-              alt="Image of Uche Ofatu aka DomRift"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section class="work" id="work">
-        <div class="work-container">
-          <h2>Work or Projects</h2>
-          <div class="entry">
-            <div class="entry__meta">
-              <h3>
-                <a href="https://ainest-pi.vercel.app/" target="_blank"
-                  >Ainest</a
-                >
-              </h3>
-              <p>Hackathon Project</p>
-            </div>
-            <figure class="entry__media">
-              <a href="https://ainest-pi.vercel.app/" target="_blank"
-                ><img src="images/Ainest.png" alt="Ainest Dataset Marketplace"
-              /></a>
-            </figure>
-          </div>
-          <div class="entry">
-            <div class="entry__meta">
-              <h3>
-                <a href="https://zenith-meme-hub.vercel.app/" target="_blank"
-                  >StarkMemes</a
-                >
-              </h3>
-              <p>Hackathon Project</p>
-            </div>
-            <figure class="entry__media">
-              <a href="https://zenith-meme-hub.vercel.app/" target="_blank"
-                ><img
-                  src="images/Memepad.png"
-                  alt="Starknet's First Memecoin Launchpad"
-              /></a>
-            </figure>
-          </div>
-          <div class="entry">
-            <div class="entry__meta">
-              <h3>
-                <a
-                  href="https://macnelson9.github.io/sweetCrumbs/"
-                  target="_blank"
-                  >Sweet Crumbs</a
-                >
-              </h3>
-              <p>Personal Project</p>
-            </div>
-            <figure class="entry__media">
-              <a
-                href="https://macnelson9.github.io/sweetCrumbs/"
-                target="_blank"
-                ><img
-                  src="images/Sweet Crumbs (1).png"
-                  alt="Sweet Crumbs Landing Page Image"
-              /></a>
-            </figure>
-          </div>
-          <div class="entry">
-            <div class="entry__meta">
-              <h3>
-                <a href="https://guessquest-seven.vercel.app/" target="_blank"
-                  >GuessQuest</a
-                >
-              </h3>
-              <p>Hackathon Project</p>
-            </div>
-            <figure class="entry__media">
-              <a href="https://guessquest-seven.vercel.app/" target="_blank"
-                ><img
-                  src="images/Guessquest.png"
-                  alt="GuessQuest, A Web3 Guessing Game"
-              /></a>
-            </figure>
-          </div>
-          <div class="entry">
-            <div class="entry__meta">
-              <h3>
-                <a
-                  href="https://macnelson9.github.io/smart-home/"
-                  target="_blank"
-                  >Smart Home</a
-                >
-              </h3>
-              <p>Personal Project</p>
-            </div>
-            <figure class="entry__media">
-              <a href="https://macnelson9.github.io/smart-home/" target="_blank"
-                ><img
-                  src="images/Smart Home __ Landing Page.png"
-                  alt="Smart Home Landing Page"
-              /></a>
-            </figure>
-          </div>
-          <div class="entry">
-            <div class="entry__meta">
-              <h3>
-                <a
-                  href="https://macnelson9.github.io/innovatek/"
-                  target="_blank"
-                  >Innovatek</a
-                >
-              </h3>
-              <p>Personal Project</p>
-            </div>
-            <figure class="entry__media">
-              <a href="https://macnelson9.github.io/innovatek/" target="_blank"
-                ><img
-                  src="images/Innovatek __ Innovating Tomorrow, Today.png"
-                  alt="Innovatek Landing Page"
-              /></a>
-            </figure>
-          </div>
-          <div class="entry">
-            <div class="entry__meta">
-              <h3>
-                <a
-                  href="https://macnelson9.github.io/qlick-art/"
-                  target="_blank"
-                  >Qlick Art</a
-                >
-              </h3>
-              <p>Personal Project</p>
-            </div>
-            <figure class="entry__media">
-              <a href="https://macnelson9.github.io/qlick-art/" target="_blank"
-                ><img
-                  src="images/Art Stories - Qlick.png"
-                  alt="Qlick Art Landing Page"
-              /></a>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <section class="contact" id="contact">
-        <div class="contact-container">
-          <h2>
-            Fullstack Blockchain Development is
-            <span id="typewriter"></span>
-            <span id="cursor">|</span>
-          </h2>
-
-          <div class="contact-content">
-            <h3>Let's create something amazing together!</h3>
-            <a
-              href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09"
-              target="_blank"
-            >
-              <button class="btn">
-                Tell me about your project
-                <svg width="25" height="24" viewBox="0 0 25 24" fill="none">
-                  <path
-                    d="M21.5 12H3.5M17.5 8L21.5 12L17.5 8ZM21.5 12L17.5 16L21.5 12Z"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-            </a>
-            <ul class="contact-social-links">
-              <li class="social-links-li">
-                <a
-                  href="https://www.facebook.com/micheal.okpara.52"
-                  title="Facebook Profile"
-                  target="_blank"
-                  ><ion-icon name="logo-facebook"></ion-icon
-                ></a>
-              </li>
-              <li class="social-links-li">
-                <a
-                  href="https://www.instagram.com/macnelson92?igsh=c3hha3VjOHYzdWs5"
-                  title="Instagram Profile"
-                  target="_blank"
-                  ><ion-icon name="logo-instagram"></ion-icon
-                ></a>
-              </li>
-              <li class="social-links-li">
-                <a
-                  href="https://www.linkedin.com/in/uche-ofatu"
-                  title="LinkedIn Profile"
-                  ><ion-icon name="logo-linkedin" target="_blank"></ion-icon
-                ></a>
-              </li>
-              <li class="social-links-li">
-                <a
-                  href="https://x.com/Macnelson92?t=vAGEJQcCttdqKd8NKfda2A&s=09"
-                  title="X Profile"
-                  ><ion-icon name="logo-twitter" target="_blank"></ion-icon
-                ></a>
-              </li>
-              <li class="social-links-li">
-                <a
-                  href="https://github.com/Macnelson9"
-                  title="Github Profile"
-                  target="_blank"
-                  ><ion-icon name="logo-github"></ion-icon
-                ></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <button class="back-to-top hidden">Back to Top</button>
-      </section>
-
-      <footer>
-        <p>&copy; 2025 Uche Macnelson Ofatu. All rights reserved.</p>
-      </footer>
+      <p class="code-tag mono">
+        <span class="kw">const</span> uche = {
+        <span class="fn">stack</span>: [<span class="str">"React"</span>, <span class="str">"Rust"</span>, <span class="str">"Solidity"</span>, <span class="str">"Cairo"</span>],
+        <span class="fn">status</span>: <span class="str">"open"</span>
+        }
+      </p>
     </div>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/TextPlugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
-  </body>
+
+  </div>
+
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <span class="v-line"></span>
+  </div>
+</section>
+
+<!-- ======================================================
+     MARQUEE
+====================================================== -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee-track">
+    <div class="marquee-item"><span>React</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Next.js</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>TypeScript</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Rust</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Solidity</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Cairo</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>TailwindCSS</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>StarkNet</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Base</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Celo</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Stellar</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Smart Contracts</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>dApps</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>React</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Next.js</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>TypeScript</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Rust</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Solidity</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Cairo</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>TailwindCSS</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>StarkNet</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Base</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Celo</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Stellar</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>Smart Contracts</span><span class="sep">✦</span></div>
+    <div class="marquee-item"><span>dApps</span><span class="sep">✦</span></div>
+  </div>
+</div>
+
+<!-- ======================================================
+     WORK
+====================================================== -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-label">// 001 — selected projects</span>
+      <h2 class="section-title">Work</h2>
+      <p class="section-note">Hackathon wins, dApps, and production interfaces. Real projects, real chains.</p>
+    </div>
+
+    <div class="work-grid">
+
+      <article class="proj-card reveal">
+        <div class="proj-img">
+          <img src="images/Ainest.png" alt="Ainest Dataset Marketplace" loading="lazy">
+          <span class="proj-badge">Web3</span>
+        </div>
+        <div class="proj-info">
+          <div class="proj-info-row">
+            <span class="proj-name">Ainest</span>
+            <span class="proj-type mono">Hackathon · dApp</span>
+          </div>
+          <p class="proj-desc">AI dataset marketplace on-chain. Browse, buy, and sell training data with verified provenance and smart contract payments.</p>
+          <a href="https://ainest-pi.vercel.app/" target="_blank" rel="noopener" class="proj-link mono">
+            view live <svg viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="proj-card reveal">
+        <div class="proj-img">
+          <img src="images/Memepad.png" alt="StarkMemes Memecoin Launchpad" loading="lazy">
+          <span class="proj-badge">StarkNet</span>
+        </div>
+        <div class="proj-info">
+          <div class="proj-info-row">
+            <span class="proj-name">StarkMemes</span>
+            <span class="proj-type mono">Hackathon · Cairo</span>
+          </div>
+          <p class="proj-desc">StarkNet's first memecoin launchpad — deploy, trade, and track tokens on L2 with near-zero gas. Built with Cairo smart contracts.</p>
+          <a href="https://zenith-meme-hub.vercel.app/" target="_blank" rel="noopener" class="proj-link mono">
+            view live <svg viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="proj-card reveal">
+        <div class="proj-img">
+          <div class="proj-placeholder" style="background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 50%,#0d2137 100%);">
+            <div class="ph-grid"></div>
+            <span class="ph-label">Split — coming soon</span>
+          </div>
+          <span class="proj-badge">Web3</span>
+        </div>
+        <div class="proj-info">
+          <div class="proj-info-row">
+            <span class="proj-name">Split</span>
+            <span class="proj-type mono">Base · Celo</span>
+          </div>
+          <p class="proj-desc">Decentralized payment splitting on Base &amp; Celo. Create smart contracts that automatically distribute payments among multiple recipients by predefined percentages — no trust required.</p>
+          <a href="https://paywithsplit.app" target="_blank" rel="noopener" class="proj-link mono">
+            paywithsplit.app <svg viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="proj-card reveal">
+        <div class="proj-img">
+          <div class="proj-placeholder" style="background:linear-gradient(135deg,#120a28 0%,#2d1b5e 50%,#0f1a3a 100%);">
+            <div class="ph-grid"></div>
+            <span class="ph-label">Settu — coming soon</span>
+          </div>
+          <span class="proj-badge">Web3</span>
+        </div>
+        <div class="proj-info">
+          <div class="proj-info-row">
+            <span class="proj-name">Settu</span>
+            <span class="proj-type mono">Stellar · Allbridge</span>
+          </div>
+          <p class="proj-desc">Fiat ↔ Stellar USDC bridge. Offramp converts Stellar USDC to fiat via Base and Paycrest. Onramp sends fiat back to Stellar USDC — delivered to your Stellar address.</p>
+          <a href="https://settu.xyz" target="_blank" rel="noopener" class="proj-link mono">
+            settu.xyz <svg viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="proj-card reveal">
+        <div class="proj-img">
+          <div class="proj-placeholder" style="background:linear-gradient(135deg,#0d0818 0%,#1e0a3c 50%,#080d1f 100%);">
+            <div class="ph-grid"></div>
+            <span class="ph-label">FutureBase — coming soon</span>
+          </div>
+          <span class="proj-badge">Web3</span>
+        </div>
+        <div class="proj-info">
+          <div class="proj-info-row">
+            <span class="proj-name">FutureBase</span>
+            <span class="proj-type mono">On-chain · Encrypted</span>
+          </div>
+          <p class="proj-desc">Send encrypted messages to your future self, stored permanently on-chain. Decentralized, immutable, and yours — a time capsule the blockchain can't lose.</p>
+          <a href="https://futurebase-live.vercel.app" target="_blank" rel="noopener" class="proj-link mono">
+            view live <svg viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H5M10 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     WEB3
+====================================================== -->
+<section id="web3">
+  <canvas id="web3-canvas"></canvas>
+  <div class="wrap web3-inner">
+    <div class="web3-copy reveal">
+      <span class="section-label">// 002 — on-chain</span>
+      <h2 class="section-title">Building on the blockchain.</h2>
+      <p class="section-note" style="margin-top:16px;">
+        From ERC-20 tokens to full dApps on StarkNet, Base, and Celo — I write smart contracts in Solidity,
+        Cairo, and increasingly Rust, wire them to React frontends, and ship products that live on-chain.
+      </p>
+
+      <div class="chain-stat-grid">
+        <div class="chain-stat reveal">
+          <div class="stat-val">3+</div>
+          <div class="stat-label">Hackathons</div>
+        </div>
+        <div class="chain-stat reveal">
+          <div class="stat-val">50+</div>
+          <div class="stat-label">Contracts Deployed</div>
+        </div>
+        <div class="chain-stat reveal">
+          <div class="stat-val">2</div>
+          <div class="stat-label">Contract Languages</div>
+        </div>
+        <div class="chain-stat reveal">
+          <div class="stat-val">∞</div>
+          <div class="stat-label">Blocks confirmed</div>
+        </div>
+      </div>
+
+      <div class="tech-stack" style="margin-top:28px;">
+        <span class="tech-pill">Solidity</span>
+        <span class="tech-pill">Cairo</span>
+        <span class="tech-pill">Rust</span>
+        <span class="tech-pill">StarkNet</span>
+        <span class="tech-pill">Base</span>
+        <span class="tech-pill">Celo</span>
+        <span class="tech-pill">Stellar</span>
+        <span class="tech-pill accent">React</span>
+        <span class="tech-pill accent">Next.js</span>
+        <span class="tech-pill accent">TypeScript</span>
+        <span class="tech-pill accent">TailwindCSS</span>
+      </div>
+    </div>
+
+    <div class="web3-copy reveal" style="display:flex;flex-direction:column;gap:20px;">
+      <div class="terminal-card">
+        <div class="terminal-bar">
+          <span class="t-dot red"></span>
+          <span class="t-dot yellow"></span>
+          <span class="t-dot green"></span>
+          <span style="margin-left:10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted)">uche.cairo</span>
+        </div>
+        <div class="terminal-body">
+          <p><span class="kw">#[starknet::contract]</span></p>
+          <p><span class="kw">mod</span> <span class="fn">UchePortfolio</span> {</p>
+          <p>&nbsp;&nbsp;<span class="kw">use</span> starknet::<span class="fn">ContractAddress</span>;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;&nbsp;<span class="comment">// Skills on-chain</span></p>
+          <p>&nbsp;&nbsp;<span class="kw">fn</span> <span class="fn">get_stack</span>() -> <span class="fn">Array</span>&lt;<span class="fn">felt252</span>&gt; {</p>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">array!</span>[<span class="str">'Cairo'</span>, <span class="str">'Solidity'</span>,</p>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">'Rust'</span>, <span class="str">'React'</span>, <span class="str">'Next.js'</span>]</p>
+          <p>&nbsp;&nbsp;}</p>
+          <p>}</p>
+        </div>
+      </div>
+
+      <div class="terminal-card">
+        <div class="terminal-bar">
+          <span class="t-dot red"></span>
+          <span class="t-dot yellow"></span>
+          <span class="t-dot green"></span>
+          <span style="margin-left:10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted)">deploy.sh</span>
+        </div>
+        <div class="terminal-body">
+          <p><span class="comment">$ starknet deploy --network mainnet</span></p>
+          <p><span class="fn">Compiling</span> Cairo + Rust contracts<span class="blink">_</span></p>
+          <p><span class="str">✓</span> Compiled successfully</p>
+          <p><span class="str">✓</span> Contract deployed</p>
+          <p><span class="str">✓</span> Transaction confirmed</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     ABOUT
+====================================================== -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-img reveal">
+      <img src="./images/Headshot bg white.png" alt="Uche Macnelson Ofatu">
+      <div class="about-img-overlay"></div>
+    </div>
+    <div class="reveal">
+      <span class="section-label">// 003 — about</span>
+      <h2 class="section-title" style="margin-bottom:24px;">Hey, I'm Uche.</h2>
+      <p style="color:var(--text-muted);font-size:15px;line-height:1.75;margin-bottom:24px;">
+        Fullstack Blockchain Developer based in Nigeria. Computer Science graduate. I build on both ends
+        of the stack — clean frontends and battle-tested on-chain logic — driven by one principle:
+        <em>necessity is the birthplace of innovation.</em> Every project I've shipped started as a real
+        problem that needed solving, not a feature to impress.
+      </p>
+      <p style="color:var(--text-muted);font-size:15px;line-height:1.75;margin-bottom:36px;">
+        I'm a team player first. I think out loud, move fast, and make sure everyone around me ships too.
+        Good ideas don't live in isolation — they get built, tested, and refined with people who care
+        about the outcome as much as you do. When I'm not writing code, I'm tracking what the web3
+        ecosystem just broke and figuring out what needs to exist that doesn't yet.
+      </p>
+
+      <div style="border-top:1px solid var(--hairline);">
+        <div class="fact-row">
+          <span class="fact-label">Based in</span>
+          <span class="fact-value">Nigeria</span>
+        </div>
+        <div class="fact-row">
+          <span class="fact-label">Chains</span>
+          <span class="fact-value">StarkNet · Base · Celo · Stellar</span>
+        </div>
+        <div class="fact-row">
+          <span class="fact-label">Languages</span>
+          <span class="fact-value">JS/TS · Rust · Solidity · Cairo</span>
+        </div>
+        <div class="fact-row">
+          <span class="fact-label">Status</span>
+          <span class="fact-value" style="color:var(--green);">Open to work ✦</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     CONTACT
+====================================================== -->
+<section id="contact">
+  <canvas id="contact-canvas"></canvas>
+  <div class="wrap contact-inner">
+    <span class="section-label" style="display:block;margin-bottom:24px;">// 004 — let's talk</span>
+    <h2 class="contact-title reveal">Got a project?<br>Let's build it.</h2>
+
+    <div class="contact-cta-group reveal">
+      <a href="https://x.com/Macnelson92" target="_blank" rel="noopener" class="btn btn-primary magnetic">
+        Start a conversation
+      </a>
+      <a href="https://github.com/Macnelson9" target="_blank" rel="noopener" class="btn btn-outline magnetic">
+        GitHub
+      </a>
+    </div>
+
+    <div class="social-row reveal">
+      <a href="https://www.linkedin.com/in/uche-ofatu" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://x.com/Macnelson92" target="_blank" rel="noopener">X / Twitter</a>
+      <a href="https://www.instagram.com/macnelson92" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://github.com/Macnelson9" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>&copy; 2026 Uche Macnelson Ofatu</span>
+  <span>Built in Nigeria ✦ On-chain, always</span>
+</footer>
+
+</main>
+
+<script>
+(function(){
+"use strict";
+
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 860;
+
+/* ======= Theme toggle ======= */
+var html = document.documentElement;
+var toggle = document.getElementById('theme-toggle');
+var themeLabel = document.getElementById('theme-label');
+var saved = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', saved);
+themeLabel.textContent = saved;
+
+toggle.addEventListener('click', function(){
+  var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  themeLabel.textContent = next;
+});
+
+/* ======= Mobile nav ======= */
+var hamburger = document.getElementById('hamburger');
+var mobileNav = document.getElementById('mobile-nav');
+hamburger.addEventListener('click', function(){
+  mobileNav.classList.toggle('open');
+});
+document.querySelectorAll('.mobile-link').forEach(function(a){
+  a.addEventListener('click', function(){ mobileNav.classList.remove('open'); });
+});
+
+/* ======= Header entrance ======= */
+var header = document.getElementById('site-header');
+requestAnimationFrame(function(){
+  setTimeout(function(){ header.classList.add('in'); }, 60);
+});
+window.addEventListener('scroll', function(){
+  header.classList.toggle('scrolled', window.scrollY > 10);
+}, {passive:true});
+
+/* ======= Hero entrance ======= */
+function q(s){ return document.querySelector(s); }
+function qa(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); }
+
+setTimeout(function(){ var el=q('.status-pill'); if(el) el.classList.add('in'); }, 200);
+setTimeout(function(){ var el=q('.hero-headline'); if(el) el.classList.add('in'); }, 340);
+setTimeout(function(){ var el=q('.hero-sub'); if(el) el.classList.add('in'); }, 520);
+setTimeout(function(){ var el=q('.hero-actions'); if(el) el.classList.add('in'); }, 660);
+setTimeout(function(){ var el=q('.code-tag'); if(el) el.classList.add('in'); }, 820);
+setTimeout(function(){ var el=q('.scroll-hint'); if(el) el.classList.add('in'); }, 1000);
+
+/* ======= Custom cursor ======= */
+var dot = document.getElementById('cursor-dot');
+var ring = document.getElementById('cursor-ring');
+if(isTouch || reduceMotion){
+  document.body.classList.add('no-cursor');
+} else {
+  var mx=window.innerWidth/2, my=window.innerHeight/2;
+  var rx=mx, ry=my;
+  window.addEventListener('mousemove', function(e){
+    mx=e.clientX; my=e.clientY;
+    dot.style.transform='translate('+mx+'px,'+my+'px) translate(-50%,-50%)';
+  });
+  function renderRing(){
+    rx+=(mx-rx)*.13; ry+=(my-ry)*.13;
+    ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';
+    requestAnimationFrame(renderRing);
+  }
+  renderRing();
+  document.addEventListener('mouseover', function(e){
+    if(e.target.closest && e.target.closest('a,button,.btn,.proj-card,.chain-stat')){
+      ring.classList.add('hover');
+    }
+  });
+  document.addEventListener('mouseout', function(e){
+    if(e.target.closest && e.target.closest('a,button,.btn,.proj-card,.chain-stat')){
+      ring.classList.remove('hover');
+    }
+  });
+}
+
+/* ======= Magnetic buttons ======= */
+if(!isTouch && !reduceMotion){
+  qa('.magnetic').forEach(function(el){
+    el.addEventListener('mousemove', function(e){
+      var r=el.getBoundingClientRect();
+      var dx=(e.clientX-(r.left+r.width/2))*0.26;
+      var dy=(e.clientY-(r.top+r.height/2))*0.26;
+      el.style.transform='translate('+dx+'px,'+dy+'px)';
+    });
+    el.addEventListener('mouseleave', function(){ el.style.transform=''; });
+  });
+}
+
+/* ======= Scroll reveals ======= */
+var reveals = qa('.reveal');
+if(reduceMotion){ reveals.forEach(function(el){ el.classList.add('in'); }); }
+else if('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'});
+  reveals.forEach(function(el){ io.observe(el); });
+} else {
+  reveals.forEach(function(el){ el.classList.add('in'); });
+}
+
+/* ======= Marquee skew ======= */
+var marquee = document.getElementById('marquee-track');
+if(!reduceMotion && marquee){
+  var lastY=window.scrollY, skew=0;
+  function skewRender(){
+    var v=window.scrollY-lastY; lastY=window.scrollY;
+    skew+=(Math.max(-12,Math.min(12,v))-skew)*.1;
+    marquee.style.transform='skewX('+skew+'deg)';
+    requestAnimationFrame(skewRender);
+  }
+  requestAnimationFrame(skewRender);
+}
+
+/* ======= THREE.js ======= */
+if(!reduceMotion){
+  var s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  s.onload=initScenes;
+  s.onerror=function(){};
+  document.body.appendChild(s);
+}
+
+function initScenes(){
+  if(typeof THREE==='undefined') return;
+  initHeroScene();
+  initWeb3Scene();
+  initContactScene();
+}
+
+/* ================================================
+   HERO — Blockchain chain being forged
+   Links fly in one by one and interlock in 3D.
+   A new "block" mines every 6s, extending the chain.
+   Represents: ideas → structure → on-chain product.
+================================================ */
+function initHeroScene(){
+  var canvas=document.getElementById('hero-canvas');
+  var section=document.getElementById('hero');
+  if(!canvas||!section) return;
+
+  var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+
+  var scene=new THREE.Scene();
+  /* Close camera so giant rings surround the viewport */
+  var camera=new THREE.PerspectiveCamera(80,1,0.1,200);
+  camera.position.set(0,0,4);
+
+  /* Wireframe mesh — no lighting needed */
+
+  /* Rings huge enough to surround the entire viewport */
+  var LINK_R   = 4.5;   /* massive — extends well beyond screen edges */
+  var LINK_T   = 0.25;  /* thick structural tube — immersive, Nidavellir-scale */
+  var SPACING  = 5.2;   /* wide gaps so rings feel separate in depth */
+  var MAX_LINKS= 6;
+
+  function makeLinkMat(orange){
+    return new THREE.MeshBasicMaterial({
+      color:       orange ? 0xF97316 : 0xA78BFA,
+      wireframe:   true,
+      transparent: true,
+      opacity:     0.5
+    });
+  }
+
+  var chainGroup=new THREE.Group();
+  /* Tilt so you see the rings receding into depth, not face-on */
+  chainGroup.rotation.x=0.55;
+  chainGroup.rotation.y=0.2;
+  scene.add(chainGroup);
+
+  var links=[];
+
+  function createLink(idx){
+    var isEven=(idx%2===0);
+    /* Sparse radial (8) but many circumferential (120) = open spacey mesh */
+    var geo=new THREE.TorusGeometry(LINK_R, LINK_T, 8, 120);
+    var mesh=new THREE.Mesh(geo, makeLinkMat(isEven));
+    if(!isEven) mesh.rotation.z=Math.PI/2;
+
+    var targetX=(idx-(MAX_LINKS-1)/2)*SPACING;
+    var target=new THREE.Vector3(targetX,0,0);
+
+    mesh.position.set(targetX, isEven ? 30 : -30, (Math.random()-.5)*6);
+    mesh.scale.setScalar(0.1);
+
+    chainGroup.add(mesh);
+    links.push({mesh:mesh, target:target, active:false, idx:idx});
+    return links[links.length-1];
+  }
+
+  var INITIAL=5;
+  for(var i=0;i<INITIAL;i++) createLink(i);
+
+  /* Junction: wireframe icosahedron — matches contact section language */
+  var junctions=[];
+  for(var j=0;j<MAX_LINKS-1;j++){
+    var jm=new THREE.Mesh(
+      new THREE.IcosahedronGeometry(0.35,1),
+      new THREE.MeshBasicMaterial({color:0xF97316,wireframe:true,transparent:true,opacity:0.85})
+    );
+    jm.visible=false;
+    chainGroup.add(jm);
+    junctions.push(jm);
+  }
+
+  /* Particle stream — flows along chain axis */
+  var PART=200;
+  var pPos=new Float32Array(PART*3);
+  var pVel=new Float32Array(PART);
+  for(var p=0;p<PART;p++){
+    pPos[p*3]  =(Math.random()-.5)*28;
+    pPos[p*3+1]=(Math.random()-.5)*14;
+    pPos[p*3+2]=(Math.random()-.5)*10;
+    pVel[p]    =0.025+Math.random()*0.035;
+  }
+  var pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  var partMesh=new THREE.Points(pGeo,new THREE.PointsMaterial({
+    color:0xF97316,size:0.04,transparent:true,opacity:0.28
+  }));
+  scene.add(partMesh);
+
+  function resize(){
+    var w=section.clientWidth,h=section.clientHeight;
+    if(!w||!h) return;
+    renderer.setSize(w,h,false);
+    camera.aspect=w/h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize',resize);
+
+  var mouseX=0,mouseY=0;
+  window.addEventListener('mousemove',function(e){
+    mouseX=(e.clientX/window.innerWidth-0.5);
+    mouseY=(e.clientY/window.innerHeight-0.5);
+  });
+
+  var visible=true;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(e){visible=e[0].isIntersecting;},{threshold:0}).observe(section);
+  }
+
+  /* Track which links have landed */
+  var landed=0;
+  /* Mining: add new link every N seconds once chain is assembled */
+  var lastMine=-999, MINE_INT=6;
+  var nextLinkIdx=INITIAL;
+  /* Flash state for "new block" event */
+  var flashT=0;
+
+  var clock=new THREE.Clock();
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if(!visible) return;
+    var t=clock.getElapsedTime();
+
+    /* Stagger link arrivals: one every 0.5s */
+    for(var i=0;i<links.length;i++){
+      var lk=links[i];
+      if(!lk.active && t>i*0.5){
+        lk.active=true;
+      }
+      if(!lk.active) continue;
+
+      /* Lerp to target + scale up */
+      lk.mesh.position.lerp(lk.target,0.08);
+      lk.mesh.scale.lerp(new THREE.Vector3(1,1,1),0.08);
+
+      /* Spin each link slowly on its natural axis */
+      if(lk.idx%2===0) lk.mesh.rotation.x+=0.006;
+      else             lk.mesh.rotation.y+=0.006;
+
+      /* Count landed */
+      if(lk.mesh.position.distanceTo(lk.target)<0.05) landed=Math.max(landed,lk.idx+1);
+    }
+
+    /* Show junctions as links land */
+    for(var j=0;j<junctions.length;j++){
+      if(j+1<landed){
+        junctions[j].visible=true;
+        var lA=links[j].target, lB=links[j+1].target;
+        junctions[j].position.set((lA.x+lB.x)/2,0,0);
+        /* Pulse junction */
+        var sc=1+Math.sin(t*3+j)*0.15;
+        junctions[j].scale.setScalar(sc);
+      }
+    }
+
+    /* Mine new block */
+    if(landed>=INITIAL && t-lastMine>MINE_INT && nextLinkIdx<MAX_LINKS){
+      createLink(nextLinkIdx);
+      nextLinkIdx++;
+      lastMine=t;
+      flashT=t;
+    }
+
+    /* New-block flash: briefly pulse junction opacity */
+    if(t-flashT<0.6){
+      var frac=1-(t-flashT)/0.6;
+      for(var f=0;f<junctions.length;f++){
+        if(junctions[f].visible) junctions[f].material.opacity=0.9+frac*0.1;
+      }
+    }
+
+    /* Chain group mouse parallax */
+    chainGroup.rotation.y+=(mouseX*0.6-chainGroup.rotation.y)*0.04;
+    chainGroup.rotation.x+=(0.35-mouseY*0.25-chainGroup.rotation.x)*0.04;
+
+    /* Gentle bob */
+    chainGroup.position.y=Math.sin(t*0.4)*0.12;
+
+    /* Stream particles drift along X, wrap */
+    var posAttr=pGeo.attributes.position;
+    for(var p=0;p<PART;p++){
+      posAttr.array[p*3]+=pVel[p];
+      if(posAttr.array[p*3]>14) posAttr.array[p*3]=-14;
+    }
+    posAttr.needsUpdate=true;
+
+    renderer.render(scene,camera);
+  }
+  animate();
+}
+
+/* ================================================
+   WEB3 SECTION — Blockchain network
+================================================ */
+function initWeb3Scene(){
+  var canvas=document.getElementById('web3-canvas');
+  var section=document.getElementById('web3');
+  if(!canvas||!section) return;
+
+  var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+
+  var scene=new THREE.Scene();
+  var camera=new THREE.PerspectiveCamera(55,1,0.1,100);
+  camera.position.z=9;
+
+  /* Node positions */
+  var NODE_COUNT = 18;
+  var nodePositions = [];
+  var nodeMeshes = [];
+  var nodeEnergy = [];
+
+  for(var i=0;i<NODE_COUNT;i++){
+    var pos = new THREE.Vector3(
+      (Math.random()-.5)*14,
+      (Math.random()-.5)*8,
+      (Math.random()-.5)*4
+    );
+    nodePositions.push(pos);
+    nodeEnergy.push(0);
+
+    var geo = new THREE.SphereGeometry(0.12, 8, 8);
+    var mat = new THREE.MeshBasicMaterial({color:0x8B5CF6, transparent:true, opacity:.8});
+    var mesh = new THREE.Mesh(geo, mat);
+    mesh.position.copy(pos);
+    scene.add(mesh);
+    nodeMeshes.push(mesh);
+  }
+
+  /* Edges — connect nearby nodes */
+  var edges = [];
+  var edgeMats = [];
+  var MAX_DIST = 5;
+
+  for(var a=0;a<NODE_COUNT;a++){
+    for(var b=a+1;b<NODE_COUNT;b++){
+      if(nodePositions[a].distanceTo(nodePositions[b]) < MAX_DIST){
+        var eg = new THREE.BufferGeometry().setFromPoints([nodePositions[a], nodePositions[b]]);
+        var em = new THREE.LineBasicMaterial({color:0x8B5CF6, transparent:true, opacity:.18});
+        scene.add(new THREE.Line(eg, em));
+        edges.push([a,b]);
+        edgeMats.push(em);
+      }
+    }
+  }
+
+  /* "Pulse" travelling along an edge */
+  var pulseGeo = new THREE.SphereGeometry(0.07,6,6);
+  var pulseMat = new THREE.MeshBasicMaterial({color:0xA78BFA, transparent:true, opacity:.9});
+  var pulseMesh = new THREE.Mesh(pulseGeo, pulseMat);
+  scene.add(pulseMesh);
+
+  var pulseEdgeIdx = 0;
+  var pulseT = 0;
+  var PULSE_SPEED = 0.018;
+
+  function nextPulseEdge(){
+    pulseEdgeIdx = Math.floor(Math.random()*edges.length);
+  }
+  nextPulseEdge();
+
+  function resize(){
+    var w=section.clientWidth, h=section.clientHeight;
+    if(!w||!h) return;
+    renderer.setSize(w,h,false);
+    camera.aspect=w/h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var visible=false;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(entries){ visible=entries[0].isIntersecting; },{threshold:0}).observe(section);
+  }
+
+  var clock=new THREE.Clock();
+  function animate(){
+    requestAnimationFrame(animate);
+    if(!visible) return;
+    var t=clock.getElapsedTime();
+
+    /* Float nodes */
+    for(var i=0;i<NODE_COUNT;i++){
+      nodeMeshes[i].position.y = nodePositions[i].y + Math.sin(t*0.4 + i*0.8)*0.18;
+      nodeMeshes[i].position.x = nodePositions[i].x + Math.cos(t*0.3 + i*1.1)*0.12;
+    }
+
+    /* Pulse travel */
+    pulseT += PULSE_SPEED;
+    if(pulseT >= 1){
+      pulseT=0;
+      /* Flash destination node */
+      nodeEnergy[edges[pulseEdgeIdx][1]] = 1.0;
+      nextPulseEdge();
+    }
+    var eA = edges[pulseEdgeIdx][0];
+    var eB = edges[pulseEdgeIdx][1];
+    pulseMesh.position.lerpVectors(nodeMeshes[eA].position, nodeMeshes[eB].position, pulseT);
+
+    /* Decay node energy */
+    for(var i=0;i<NODE_COUNT;i++){
+      nodeEnergy[i] *= 0.94;
+      var bright = 0.5 + nodeEnergy[i]*0.5;
+      nodeMeshes[i].material.opacity = Math.max(.25, Math.min(.95, bright));
+      nodeMeshes[i].scale.setScalar(1 + nodeEnergy[i]*0.6);
+    }
+
+    scene.rotation.y = t*0.025;
+
+    renderer.render(scene, camera);
+  }
+  animate();
+}
+
+/* ================================================
+   CONTACT — nested polyhedra + orbital rings
+   (signature piece, unique to Uche)
+================================================ */
+function initContactScene(){
+  var canvas=document.getElementById('contact-canvas');
+  var section=document.getElementById('contact');
+  if(!canvas||!section) return;
+
+  var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  var scene=new THREE.Scene();
+  var camera=new THREE.PerspectiveCamera(48,1,0.1,100);
+  camera.position.z=9;
+
+  /* Lighting */
+  scene.add(new THREE.AmbientLight(0xffffff,0.3));
+  var l1=new THREE.PointLight(0xF97316,1.4,18);
+  l1.position.set(3,3,4);
+  scene.add(l1);
+  var l2=new THREE.PointLight(0xA78BFA,1.0,18);
+  l2.position.set(-3,-3,4);
+  scene.add(l2);
+
+  /* Core: solid icosahedron — glowing orange */
+  var coreMat=new THREE.MeshPhongMaterial({
+    color:0xF97316, emissive:0xC2560C, emissiveIntensity:0.4,
+    transparent:true, opacity:0.85, shininess:140, specular:0xFFDDCC
+  });
+  var core=new THREE.Mesh(new THREE.IcosahedronGeometry(0.9,1), coreMat);
+  scene.add(core);
+
+  /* Inner wireframe shell on icosahedron */
+  var innerWire=new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.05,1),
+    new THREE.MeshBasicMaterial({color:0xF97316,wireframe:true,transparent:true,opacity:0.18})
+  );
+  scene.add(innerWire);
+
+  /* Mid shell: dodecahedron wireframe — purple */
+  var midShell=new THREE.Mesh(
+    new THREE.DodecahedronGeometry(1.9,0),
+    new THREE.MeshBasicMaterial({color:0xA78BFA,wireframe:true,transparent:true,opacity:0.14})
+  );
+  scene.add(midShell);
+
+  /* Outer shell: octahedron — faint orange */
+  var outerShell=new THREE.Mesh(
+    new THREE.OctahedronGeometry(2.8,1),
+    new THREE.MeshBasicMaterial({color:0xF97316,wireframe:true,transparent:true,opacity:0.07})
+  );
+  scene.add(outerShell);
+
+  /* Three orbital rings at different tilts */
+  function makeRing(radius, tubeR, color, rx, ry, rz){
+    var m=new THREE.Mesh(
+      new THREE.TorusGeometry(radius, tubeR, 6, 80),
+      new THREE.MeshPhongMaterial({color:color,emissive:color,emissiveIntensity:0.3,transparent:true,opacity:0.55,shininess:80})
+    );
+    m.rotation.set(rx,ry,rz);
+    return m;
+  }
+  var ring1=makeRing(2.4,0.025,0xF97316, 0,        0,       0);
+  var ring2=makeRing(2.4,0.025,0xA78BFA, Math.PI/2,0,       0.4);
+  var ring3=makeRing(2.4,0.025,0xFFFFFF, 0.9,      0.3,     1.1);
+  var ringGroup=new THREE.Group();
+  ringGroup.add(ring1,ring2,ring3);
+  scene.add(ringGroup);
+
+  /* Orbital dots on ring1 — two dots chasing each other */
+  function makeOrbDot(color){
+    return new THREE.Mesh(
+      new THREE.SphereGeometry(0.1,10,10),
+      new THREE.MeshPhongMaterial({color:color,emissive:color,emissiveIntensity:0.8,shininess:200})
+    );
+  }
+  var dot1=makeOrbDot(0xF97316);
+  var dot2=makeOrbDot(0xA78BFA);
+  var dot3=makeOrbDot(0xFFFFFF);
+  scene.add(dot1,dot2,dot3);
+
+  /* Particle halo */
+  var haloCount=200;
+  var hPos=new Float32Array(haloCount*3);
+  for(var i=0;i<haloCount;i++){
+    var r=3.6+Math.random()*1.4;
+    var th=Math.random()*Math.PI*2;
+    var ph=Math.acos(2*Math.random()-1);
+    hPos[i*3]  =r*Math.sin(ph)*Math.cos(th);
+    hPos[i*3+1]=r*Math.sin(ph)*Math.sin(th);
+    hPos[i*3+2]=r*Math.cos(ph)*0.5;
+  }
+  var hGeo=new THREE.BufferGeometry();
+  hGeo.setAttribute('position',new THREE.BufferAttribute(hPos,3));
+  scene.add(new THREE.Points(hGeo,new THREE.PointsMaterial({color:0xF97316,size:0.04,transparent:true,opacity:0.3})));
+
+  function resize(){
+    var w=section.clientWidth, h=section.clientHeight;
+    if(!w||!h) return;
+    renderer.setSize(w,h,false);
+    camera.aspect=w/h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize',resize);
+
+  var visible=false;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(entries){visible=entries[0].isIntersecting;},{threshold:0}).observe(section);
+  }
+
+  var clock=new THREE.Clock();
+  var mouseX=0, mouseY=0;
+  section.addEventListener('mousemove',function(e){
+    var r=section.getBoundingClientRect();
+    mouseX=(e.clientX-r.left)/r.width-0.5;
+    mouseY=(e.clientY-r.top)/r.height-0.5;
+  });
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if(!visible) return;
+    var t=clock.getElapsedTime();
+
+    /* Core pulses */
+    var pulse=1+Math.sin(t*1.4)*0.04;
+    core.scale.setScalar(pulse);
+    innerWire.scale.setScalar(pulse*1.02);
+
+    /* Shells rotate on different axes */
+    core.rotation.y=t*0.28;
+    core.rotation.x=t*0.17;
+    innerWire.rotation.y=-t*0.18;
+    innerWire.rotation.z=t*0.12;
+    midShell.rotation.x=t*0.14;
+    midShell.rotation.y=-t*0.22;
+    outerShell.rotation.z=t*0.08;
+    outerShell.rotation.x=-t*0.06;
+
+    /* Ring group responds to mouse */
+    ringGroup.rotation.y+=(mouseX*0.8-ringGroup.rotation.y)*0.03;
+    ringGroup.rotation.x+=(-mouseY*0.5-ringGroup.rotation.x)*0.03;
+
+    /* Rings spin independently */
+    ring1.rotation.z=t*0.4;
+    ring2.rotation.z=-t*0.3;
+    ring3.rotation.y=t*0.25;
+
+    /* Orbital dots */
+    var RING_R=2.4;
+    dot1.position.set(Math.cos(t*0.7)*RING_R, Math.sin(t*0.7)*RING_R, 0);
+    dot2.position.set(Math.cos(t*0.5+Math.PI)*RING_R*Math.cos(0.4), Math.sin(t*0.5+Math.PI)*RING_R, Math.sin(t*0.5+Math.PI)*RING_R*Math.sin(0.4));
+    dot3.position.set(Math.cos(t*0.9+2)*RING_R*Math.cos(1.1), Math.sin(t*0.9+2)*RING_R*Math.sin(0.9), Math.cos(t*0.9+2)*0.5);
+
+    /* Point lights orbit */
+    l1.position.set(Math.cos(t*0.3)*5, Math.sin(t*0.5)*3, 4);
+    l2.position.set(Math.cos(t*0.3+Math.PI)*5, Math.sin(t*0.5+Math.PI)*3, 4);
+
+    renderer.render(scene,camera);
+  }
+  animate();
+}
+
+})();
+</script>
+</body>
 </html>
