@@ -253,17 +253,9 @@ nav.wrap { display:flex; align-items:center; justify-content:space-between; gap:
   border-radius:100px; padding:7px 16px;
   font-family:'JetBrains Mono',monospace; font-size:11px;
   color:var(--text-muted); margin-bottom:28px;
-  opacity:0; transform:translateY(12px);
-  transition:opacity .7s var(--ease), transform .7s var(--ease);
 }
-.status-pill.in { opacity:1; transform:translateY(0); }
 .status-pill .pulse {
   width:7px; height:7px; border-radius:50%; background:var(--green);
-  animation:pulse-dot 2s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%,100%{opacity:1;transform:scale(1);}
-  50%{opacity:.4;transform:scale(.6);}
 }
 .status-pill .comment { color:var(--text-muted); margin-right:2px; }
 
@@ -272,54 +264,31 @@ nav.wrap { display:flex; align-items:center; justify-content:space-between; gap:
   line-height:1.04;
   margin-bottom:24px;
 }
-.hero-headline .line { display:block; overflow:hidden; }
-.hero-headline .line span {
-  display:block; transform:translateY(106%);
-  transition:transform .9s var(--ease);
-}
-.hero-headline.in .line span { transform:translateY(0); }
-.hero-headline .line:nth-child(2) span { transition-delay:.08s; }
-.hero-headline .line:nth-child(3) span { transition-delay:.16s; }
+.hero-headline .line { display:block; }
 
 .accent-text { color:var(--accent); }
 .web3-text { color:var(--web3); }
 
 /* Typewriter cursor */
-.blink { animation:blink .8s step-end infinite; color:var(--accent); }
-@keyframes blink { 50%{ opacity:0; } }
+.blink { color:var(--accent); }
 
 .hero-sub {
   font-size:16px; line-height:1.7; color:var(--text-muted);
   max-width:420px; margin-bottom:36px;
-  opacity:0; transform:translateY(12px);
-  transition:opacity .7s var(--ease) .3s, transform .7s var(--ease) .3s;
 }
-.hero-sub.in { opacity:1; transform:translateY(0); }
 
 .hero-actions {
   display:flex; gap:14px; flex-wrap:wrap;
-  opacity:0; transform:translateY(12px);
-  transition:opacity .7s var(--ease) .45s, transform .7s var(--ease) .45s;
 }
-.hero-actions.in { opacity:1; transform:translateY(0); }
 
 /* Code snippet decoration */
 .code-tag {
   font-family:'JetBrains Mono',monospace; font-size:11px;
   color:var(--text-muted); margin-top:32px;
-  opacity:0; transition:opacity .7s var(--ease) .6s;
 }
-.code-tag.in { opacity:1; }
 .code-tag .kw { color:var(--web3); }
 .code-tag .fn { color:var(--accent); }
 .code-tag .str { color:var(--green); }
-
-/* Hero canvas */
-#hero-canvas {
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  z-index:1; pointer-events:none;
-}
 
 /* Scroll hint */
 .scroll-hint {
@@ -327,19 +296,10 @@ nav.wrap { display:flex; align-items:center; justify-content:space-between; gap:
   display:flex; align-items:center; gap:12px;
   font-family:'JetBrains Mono',monospace; font-size:10px;
   color:var(--text-muted);
-  opacity:0; transition:opacity .8s .9s;
 }
-.scroll-hint.in { opacity:1; }
 .scroll-hint .v-line {
   width:1px; height:32px; background:var(--hairline-2);
-  overflow:hidden; position:relative;
 }
-.scroll-hint .v-line::after {
-  content:''; position:absolute; top:-100%; left:0;
-  width:100%; height:100%; background:var(--accent);
-  animation:scroll-march 2s ease-in-out infinite;
-}
-@keyframes scroll-march { 0%{top:-100%;} 50%{top:0;} 100%{top:100%;} }
 
 /* ============================================================
    MARQUEE
@@ -431,26 +391,6 @@ section { padding:120px 0; position:relative; }
   transition:transform .6s var(--ease);
 }
 .proj-card:hover .proj-img img { transform:scale(1.04); }
-.proj-placeholder {
-  width:100%; height:100%;
-  display:flex; align-items:center; justify-content:center;
-  position:relative;
-}
-.proj-placeholder .ph-grid {
-  position:absolute; inset:0;
-  background-image:
-    linear-gradient(var(--hairline) 1px, transparent 1px),
-    linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
-  background-size:28px 28px;
-  opacity:.6;
-}
-.proj-placeholder .ph-label {
-  font-family:'JetBrains Mono',monospace; font-size:10px;
-  letter-spacing:.12em; text-transform:uppercase;
-  color:rgba(255,255,255,0.25); position:relative; z-index:1;
-}
-[data-theme="light"] .proj-placeholder .ph-label { color:rgba(0,0,0,0.2); }
-
 /* Web3 badge */
 .proj-badge {
   position:absolute; top:14px; right:14px; z-index:2;
@@ -608,7 +548,7 @@ section { padding:120px 0; position:relative; }
 ============================================================ */
 footer {
   border-top:1px solid var(--hairline);
-  padding:300px 0;
+  padding:1500px 0;
   display:flex; justify-content:space-between; align-items:center;
   font-family:'JetBrains Mono',monospace; font-size:11px;
   color:var(--text-muted);
@@ -629,6 +569,8 @@ footer {
   .nav-links, .nav-right .btn { display:none; }
   .hamburger { display:flex; }
   section { padding:80px 0; }
+  .hero-headline { font-size:clamp(22px,7.8vw,42px); }
+  .code-tag { overflow-wrap:break-word; }
   .chain-stat-grid { grid-template-columns:1fr; }
   footer { flex-direction:column; gap:10px; text-align:center; }
 }
@@ -686,7 +628,6 @@ footer {
      HERO
 ====================================================== -->
 <section id="hero">
-  <canvas id="hero-canvas"></canvas>
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <div class="status-pill mono">
@@ -809,10 +750,7 @@ footer {
 
       <article class="proj-card reveal">
         <div class="proj-img">
-          <div class="proj-placeholder" style="background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 50%,#0d2137 100%);">
-            <div class="ph-grid"></div>
-            <span class="ph-label">Split — coming soon</span>
-          </div>
+          <img src="images/Split.png" alt="Split — decentralized payment splitting" loading="lazy">
           <span class="proj-badge">Web3</span>
         </div>
         <div class="proj-info">
@@ -829,10 +767,7 @@ footer {
 
       <article class="proj-card reveal">
         <div class="proj-img">
-          <div class="proj-placeholder" style="background:linear-gradient(135deg,#120a28 0%,#2d1b5e 50%,#0f1a3a 100%);">
-            <div class="ph-grid"></div>
-            <span class="ph-label">Settu — coming soon</span>
-          </div>
+          <img src="images/Settu.png" alt="Settu — fiat to Stellar USDC bridge" loading="lazy">
           <span class="proj-badge">Web3</span>
         </div>
         <div class="proj-info">
@@ -849,10 +784,7 @@ footer {
 
       <article class="proj-card reveal">
         <div class="proj-img">
-          <div class="proj-placeholder" style="background:linear-gradient(135deg,#0d0818 0%,#1e0a3c 50%,#080d1f 100%);">
-            <div class="ph-grid"></div>
-            <span class="ph-label">FutureBase — coming soon</span>
-          </div>
+          <img src="images/Futurebase.png" alt="FutureBase — encrypted on-chain time capsule" loading="lazy">
           <span class="proj-badge">Web3</span>
         </div>
         <div class="proj-info">
@@ -966,7 +898,7 @@ footer {
 <section id="about">
   <div class="wrap about-grid">
     <div class="about-img reveal">
-      <img src="./images/Headshot bg white.png" alt="Uche Macnelson Ofatu">
+      <img src="./images/Uche.png" alt="Uche Macnelson Ofatu">
       <div class="about-img-overlay"></div>
     </div>
     <div class="reveal">
@@ -1082,16 +1014,8 @@ window.addEventListener('scroll', function(){
   header.classList.toggle('scrolled', window.scrollY > 10);
 }, {passive:true});
 
-/* ======= Hero entrance ======= */
 function q(s){ return document.querySelector(s); }
 function qa(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); }
-
-setTimeout(function(){ var el=q('.status-pill'); if(el) el.classList.add('in'); }, 200);
-setTimeout(function(){ var el=q('.hero-headline'); if(el) el.classList.add('in'); }, 340);
-setTimeout(function(){ var el=q('.hero-sub'); if(el) el.classList.add('in'); }, 520);
-setTimeout(function(){ var el=q('.hero-actions'); if(el) el.classList.add('in'); }, 660);
-setTimeout(function(){ var el=q('.code-tag'); if(el) el.classList.add('in'); }, 820);
-setTimeout(function(){ var el=q('.scroll-hint'); if(el) el.classList.add('in'); }, 1000);
 
 /* ======= Custom cursor ======= */
 var dot = document.getElementById('cursor-dot');
@@ -1174,207 +1098,8 @@ if(!reduceMotion){
 
 function initScenes(){
   if(typeof THREE==='undefined') return;
-  initHeroScene();
   initWeb3Scene();
   initContactScene();
-}
-
-/* ================================================
-   HERO — Blockchain chain being forged
-   Links fly in one by one and interlock in 3D.
-   A new "block" mines every 6s, extending the chain.
-   Represents: ideas → structure → on-chain product.
-================================================ */
-function initHeroScene(){
-  var canvas=document.getElementById('hero-canvas');
-  var section=document.getElementById('hero');
-  if(!canvas||!section) return;
-
-  var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-
-  var scene=new THREE.Scene();
-  /* Close camera so giant rings surround the viewport */
-  var camera=new THREE.PerspectiveCamera(80,1,0.1,200);
-  camera.position.set(0,0,4);
-
-  /* Wireframe mesh — no lighting needed */
-
-  /* Rings huge enough to surround the entire viewport */
-  var LINK_R   = 4.5;   /* massive — extends well beyond screen edges */
-  var LINK_T   = 0.25;  /* thick structural tube — immersive, Nidavellir-scale */
-  var SPACING  = 5.2;   /* wide gaps so rings feel separate in depth */
-  var MAX_LINKS= 6;
-
-  function makeLinkMat(orange){
-    return new THREE.MeshBasicMaterial({
-      color:       orange ? 0xF97316 : 0xA78BFA,
-      wireframe:   true,
-      transparent: true,
-      opacity:     0.5
-    });
-  }
-
-  var chainGroup=new THREE.Group();
-  /* Tilt so you see the rings receding into depth, not face-on */
-  chainGroup.rotation.x=0.55;
-  chainGroup.rotation.y=0.2;
-  scene.add(chainGroup);
-
-  var links=[];
-
-  function createLink(idx){
-    var isEven=(idx%2===0);
-    /* Sparse radial (8) but many circumferential (120) = open spacey mesh */
-    var geo=new THREE.TorusGeometry(LINK_R, LINK_T, 8, 120);
-    var mesh=new THREE.Mesh(geo, makeLinkMat(isEven));
-    if(!isEven) mesh.rotation.z=Math.PI/2;
-
-    var targetX=(idx-(MAX_LINKS-1)/2)*SPACING;
-    var target=new THREE.Vector3(targetX,0,0);
-
-    mesh.position.set(targetX, isEven ? 30 : -30, (Math.random()-.5)*6);
-    mesh.scale.setScalar(0.1);
-
-    chainGroup.add(mesh);
-    links.push({mesh:mesh, target:target, active:false, idx:idx});
-    return links[links.length-1];
-  }
-
-  var INITIAL=5;
-  for(var i=0;i<INITIAL;i++) createLink(i);
-
-  /* Junction: wireframe icosahedron — matches contact section language */
-  var junctions=[];
-  for(var j=0;j<MAX_LINKS-1;j++){
-    var jm=new THREE.Mesh(
-      new THREE.IcosahedronGeometry(0.35,1),
-      new THREE.MeshBasicMaterial({color:0xF97316,wireframe:true,transparent:true,opacity:0.85})
-    );
-    jm.visible=false;
-    chainGroup.add(jm);
-    junctions.push(jm);
-  }
-
-  /* Particle stream — flows along chain axis */
-  var PART=200;
-  var pPos=new Float32Array(PART*3);
-  var pVel=new Float32Array(PART);
-  for(var p=0;p<PART;p++){
-    pPos[p*3]  =(Math.random()-.5)*28;
-    pPos[p*3+1]=(Math.random()-.5)*14;
-    pPos[p*3+2]=(Math.random()-.5)*10;
-    pVel[p]    =0.025+Math.random()*0.035;
-  }
-  var pGeo=new THREE.BufferGeometry();
-  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
-  var partMesh=new THREE.Points(pGeo,new THREE.PointsMaterial({
-    color:0xF97316,size:0.04,transparent:true,opacity:0.28
-  }));
-  scene.add(partMesh);
-
-  function resize(){
-    var w=section.clientWidth,h=section.clientHeight;
-    if(!w||!h) return;
-    renderer.setSize(w,h,false);
-    camera.aspect=w/h;
-    camera.updateProjectionMatrix();
-  }
-  resize();
-  window.addEventListener('resize',resize);
-
-  var mouseX=0,mouseY=0;
-  window.addEventListener('mousemove',function(e){
-    mouseX=(e.clientX/window.innerWidth-0.5);
-    mouseY=(e.clientY/window.innerHeight-0.5);
-  });
-
-  var visible=true;
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(function(e){visible=e[0].isIntersecting;},{threshold:0}).observe(section);
-  }
-
-  /* Track which links have landed */
-  var landed=0;
-  /* Mining: add new link every N seconds once chain is assembled */
-  var lastMine=-999, MINE_INT=6;
-  var nextLinkIdx=INITIAL;
-  /* Flash state for "new block" event */
-  var flashT=0;
-
-  var clock=new THREE.Clock();
-
-  function animate(){
-    requestAnimationFrame(animate);
-    if(!visible) return;
-    var t=clock.getElapsedTime();
-
-    /* Stagger link arrivals: one every 0.5s */
-    for(var i=0;i<links.length;i++){
-      var lk=links[i];
-      if(!lk.active && t>i*0.5){
-        lk.active=true;
-      }
-      if(!lk.active) continue;
-
-      /* Lerp to target + scale up */
-      lk.mesh.position.lerp(lk.target,0.08);
-      lk.mesh.scale.lerp(new THREE.Vector3(1,1,1),0.08);
-
-      /* Spin each link slowly on its natural axis */
-      if(lk.idx%2===0) lk.mesh.rotation.x+=0.006;
-      else             lk.mesh.rotation.y+=0.006;
-
-      /* Count landed */
-      if(lk.mesh.position.distanceTo(lk.target)<0.05) landed=Math.max(landed,lk.idx+1);
-    }
-
-    /* Show junctions as links land */
-    for(var j=0;j<junctions.length;j++){
-      if(j+1<landed){
-        junctions[j].visible=true;
-        var lA=links[j].target, lB=links[j+1].target;
-        junctions[j].position.set((lA.x+lB.x)/2,0,0);
-        /* Pulse junction */
-        var sc=1+Math.sin(t*3+j)*0.15;
-        junctions[j].scale.setScalar(sc);
-      }
-    }
-
-    /* Mine new block */
-    if(landed>=INITIAL && t-lastMine>MINE_INT && nextLinkIdx<MAX_LINKS){
-      createLink(nextLinkIdx);
-      nextLinkIdx++;
-      lastMine=t;
-      flashT=t;
-    }
-
-    /* New-block flash: briefly pulse junction opacity */
-    if(t-flashT<0.6){
-      var frac=1-(t-flashT)/0.6;
-      for(var f=0;f<junctions.length;f++){
-        if(junctions[f].visible) junctions[f].material.opacity=0.9+frac*0.1;
-      }
-    }
-
-    /* Chain group mouse parallax */
-    chainGroup.rotation.y+=(mouseX*0.6-chainGroup.rotation.y)*0.04;
-    chainGroup.rotation.x+=(0.35-mouseY*0.25-chainGroup.rotation.x)*0.04;
-
-    /* Gentle bob */
-    chainGroup.position.y=Math.sin(t*0.4)*0.12;
-
-    /* Stream particles drift along X, wrap */
-    var posAttr=pGeo.attributes.position;
-    for(var p=0;p<PART;p++){
-      posAttr.array[p*3]+=pVel[p];
-      if(posAttr.array[p*3]>14) posAttr.array[p*3]=-14;
-    }
-    posAttr.needsUpdate=true;
-
-    renderer.render(scene,camera);
-  }
-  animate();
 }
 
 /* ================================================
