@@ -238,13 +238,33 @@ nav.wrap { display:flex; align-items:center; justify-content:space-between; gap:
 
 .hero-grid {
   display:grid;
-  grid-template-columns:1fr;
+  grid-template-columns:1.15fr 0.85fr;
   gap:60px; align-items:center; width:100%;
   position:relative; z-index:2;
-  max-width:680px;
 }
 
 .hero-copy { position:relative; }
+
+.hero-photo { position:relative; justify-self:end; width:min(400px,100%); }
+.hero-photo img {
+  width:100%; aspect-ratio:4/5; object-fit:cover; object-position:top;
+  border-radius:var(--radius-lg);
+  border:1px solid var(--hairline-2);
+  box-shadow:0 0 60px var(--accent-dim), var(--shadow);
+}
+.hero-photo::after {
+  content:''; position:absolute; inset:0;
+  border-radius:var(--radius-lg);
+  background:linear-gradient(180deg, transparent 50%, var(--bg) 100%);
+  pointer-events:none;
+}
+.hero-photo .photo-tag {
+  position:absolute; left:14px; bottom:14px; z-index:1;
+  background:var(--surface); border:1px solid var(--hairline-2);
+  border-radius:100px; padding:6px 14px;
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  color:var(--text-muted); letter-spacing:.04em;
+}
 
 /* Terminal-style status pill */
 .status-pill {
@@ -280,15 +300,6 @@ nav.wrap { display:flex; align-items:center; justify-content:space-between; gap:
 .hero-actions {
   display:flex; gap:14px; flex-wrap:wrap;
 }
-
-/* Code snippet decoration */
-.code-tag {
-  font-family:'JetBrains Mono',monospace; font-size:11px;
-  color:var(--text-muted); margin-top:32px;
-}
-.code-tag .kw { color:var(--web3); }
-.code-tag .fn { color:var(--accent); }
-.code-tag .str { color:var(--green); }
 
 /* Scroll hint */
 .scroll-hint {
@@ -473,20 +484,7 @@ section { padding:120px 0; position:relative; }
 /* ============================================================
    ABOUT
 ============================================================ */
-.about-grid {
-  display:grid; grid-template-columns:1fr 1fr;
-  gap:80px; align-items:center;
-}
-
-.about-img {
-  position:relative; border-radius:var(--radius-lg);
-  overflow:hidden;
-}
-.about-img img { width:100%; aspect-ratio:3/4; object-fit:cover; object-position:top; }
-.about-img-overlay {
-  position:absolute; inset:0;
-  background:linear-gradient(180deg, transparent 50%, var(--bg) 100%);
-}
+.about-inner { max-width:640px; }
 
 /* Terminal card */
 .terminal-card {
@@ -548,7 +546,7 @@ section { padding:120px 0; position:relative; }
 ============================================================ */
 footer {
   border-top:1px solid var(--hairline);
-  padding:1500px 0;
+  padding:28px 0;
   display:flex; justify-content:space-between; align-items:center;
   font-family:'JetBrains Mono',monospace; font-size:11px;
   color:var(--text-muted);
@@ -558,10 +556,12 @@ footer {
    RESPONSIVE
 ============================================================ */
 @media (max-width:960px){
-  .hero-grid { grid-template-columns:1fr; }
+  .hero-grid { grid-template-columns:1fr; gap:36px; }
+  .hero-photo { order:-1; justify-self:start; width:120px; }
+  .hero-photo img { aspect-ratio:1; border-radius:24px; }
+  .hero-photo::after { border-radius:24px; }
+  .hero-photo .photo-tag { display:none; }
   .web3-inner { grid-template-columns:1fr; gap:50px; }
-  .about-grid { grid-template-columns:1fr; }
-  .about-img { max-width:400px; margin:0 auto; }
   .work-grid { grid-template-columns:1fr; }
 }
 @media (max-width:720px){
@@ -569,8 +569,7 @@ footer {
   .nav-links, .nav-right .btn { display:none; }
   .hamburger { display:flex; }
   section { padding:80px 0; }
-  .hero-headline { font-size:clamp(22px,7.8vw,42px); }
-  .code-tag { overflow-wrap:break-word; }
+  .hero-headline { font-size:clamp(28px,9vw,42px); }
   .chain-stat-grid { grid-template-columns:1fr; }
   footer { flex-direction:column; gap:10px; text-align:center; }
 }
@@ -632,31 +631,29 @@ footer {
     <div class="hero-copy">
       <div class="status-pill mono">
         <span class="pulse"></span>
-        <span class="comment">// </span>available for new projects
+        available for new projects
       </div>
 
       <h1 class="hero-headline">
-        <span class="line"><span>Building the</span></span>
-        <span class="line"><span class="accent-text">decentralized</span></span>
-        <span class="line"><span>web.<span class="blink">_</span></span></span>
+        <span class="line"><span>Hey, I'm</span></span>
+        <span class="line"><span class="accent-text">Uche Ofatu</span><span>.<span class="blink">_</span></span></span>
       </h1>
 
       <p class="hero-sub">
-        Fullstack Blockchain Developer — React, Next.js, Rust, Solidity & Cairo.
-        I build dApps, interfaces, and on-chain experiences that actually work.
+        I'm a software developer from Africa who builds apps for the next
+        generation of the web — tools people actually use, from payment
+        splitting to marketplaces.
       </p>
 
       <div class="hero-actions">
-        <a href="#work" class="btn btn-primary magnetic">See the work</a>
-        <a href="#contact" class="btn btn-outline magnetic">Start a project</a>
+        <a href="#work" class="btn btn-primary magnetic">See my work</a>
+        <a href="#contact" class="btn btn-outline magnetic">Get in touch</a>
       </div>
+    </div>
 
-      <p class="code-tag mono">
-        <span class="kw">const</span> uche = {
-        <span class="fn">stack</span>: [<span class="str">"React"</span>, <span class="str">"Rust"</span>, <span class="str">"Solidity"</span>, <span class="str">"Cairo"</span>],
-        <span class="fn">status</span>: <span class="str">"open"</span>
-        }
-      </p>
+    <div class="hero-photo">
+      <img src="./images/Uche.png" alt="Uche Macnelson Ofatu" fetchpriority="high">
+      <span class="photo-tag">Uche Macnelson Ofatu</span>
     </div>
 
   </div>
@@ -896,16 +893,12 @@ footer {
      ABOUT
 ====================================================== -->
 <section id="about">
-  <div class="wrap about-grid">
-    <div class="about-img reveal">
-      <img src="./images/Uche.png" alt="Uche Macnelson Ofatu">
-      <div class="about-img-overlay"></div>
-    </div>
-    <div class="reveal">
+  <div class="wrap">
+    <div class="about-inner reveal">
       <span class="section-label">// 003 — about</span>
-      <h2 class="section-title" style="margin-bottom:24px;">Hey, I'm Uche.</h2>
+      <h2 class="section-title" style="margin-bottom:24px;">A bit more about me.</h2>
       <p style="color:var(--text-muted);font-size:15px;line-height:1.75;margin-bottom:24px;">
-        Fullstack Blockchain Developer based in Nigeria. Computer Science graduate. I build on both ends
+        Fullstack Blockchain Developer based in Africa. A Computer Science graduate. I build on both ends
         of the stack — clean frontends and battle-tested on-chain logic — driven by one principle:
         <em>necessity is the birthplace of innovation.</em> Every project I've shipped started as a real
         problem that needed solving, not a feature to impress.
@@ -920,7 +913,7 @@ footer {
       <div style="border-top:1px solid var(--hairline);">
         <div class="fact-row">
           <span class="fact-label">Based in</span>
-          <span class="fact-value">Nigeria</span>
+          <span class="fact-value">Africa</span>
         </div>
         <div class="fact-row">
           <span class="fact-label">Chains</span>
@@ -968,7 +961,7 @@ footer {
 
 <footer class="wrap">
   <span>&copy; 2026 Uche Macnelson Ofatu</span>
-  <span>Built in Nigeria ✦ On-chain, always</span>
+  <span>Built with Love ✦ On-chain, always</span>
 </footer>
 
 </main>
