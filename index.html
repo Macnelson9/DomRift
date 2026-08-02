@@ -80,6 +80,17 @@ img, svg { display:block; max-width:100%; }
 
 ::selection { background:var(--accent); color:#fff; }
 
+/* Custom scrollbar */
+html { scrollbar-width:thin; scrollbar-color:var(--accent) var(--bg); }
+::-webkit-scrollbar { width:10px; height:10px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb {
+  background:var(--accent);
+  border-radius:100px;
+  border:2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover { background:#FB923C; }
+
 a:focus-visible, button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
