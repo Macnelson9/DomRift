@@ -556,11 +556,10 @@ footer {
    RESPONSIVE
 ============================================================ */
 @media (max-width:960px){
-  .hero-grid { grid-template-columns:1fr; gap:36px; }
-  .hero-photo { order:-1; justify-self:start; width:120px; }
+  .hero-grid { grid-template-columns:1fr; gap:32px; }
+  .hero-photo { order:-1; justify-self:start; width:min(280px,70vw); }
   .hero-photo img { aspect-ratio:1; border-radius:24px; }
   .hero-photo::after { border-radius:24px; }
-  .hero-photo .photo-tag { display:none; }
   .web3-inner { grid-template-columns:1fr; gap:50px; }
   .work-grid { grid-template-columns:1fr; }
 }
